@@ -1,0 +1,33 @@
+import * as ts from 'typescript'
+import { terminalStyle as $ } from 'src/util/terminal/terminalColors'
+
+function compile(fileNames: string[], options: ts.CompilerOptions): void {
+  // Create a Program with an in-memory emit
+  const createdFiles: Record<string, string> = {}
+  const host = ts.createCompilerHost(options)
+  host.writeFile = (fileName: string, contents: string) =>
+    (createdFiles[fileName] = contents)
+
+  // Prepare and emit the d.ts files
+  const program = ts.createProgram(fileNames, options, host)
+  program.emit()
+
+  // Loop through all the input files
+  fileNames.forEach(file => {
+    console.log(`${$.gray}### ${$.green} JavaScript ${$.gray}###${$.reset}\n`)
+    console.log(host.readFile(file))
+
+    console.log(
+      `${$.gray}### ${$.blue} Type Definition ${$.gray}###${$.reset}\n`,
+    )
+    const dts = file.replace(/\.[tj]s$/, '.d.ts')
+    console.log(createdFiles[dts])
+  })
+}
+
+// Run the compiler
+compile(['test1.js', 'test2.ts'], {
+  allowJs: true,
+  declaration: true,
+  emitDeclarationOnly: true,
+})

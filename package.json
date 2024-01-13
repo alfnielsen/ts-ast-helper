@@ -1,0 +1,20 @@
+{
+  "name": "ts-ast-helper",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist",
+    "gtest": "runtf -p gtest -s --bun"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/inquirer": "^9.0.7",
+    "inquirer": "^9.2.12"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "run-test-files": "^1.0.5"
+  }
+}
