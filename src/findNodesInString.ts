@@ -1,6 +1,6 @@
 import * as ts from "typescript"
 import { createProgramFromString } from "./program/createProgramFromString"
-import { doesNodeHasName } from "./nodeTests/hasName"
+import { getIdentifier } from "./nodeUtils/getIdentifier"
 
 export type NodeMatchMethod = (opt?: NodeMatchMethodArguments) => boolean
 export type NodeMatchMethodArguments = {
@@ -61,7 +61,7 @@ export default async function findNodesInString(code: string, opt: FindNodeInStr
           return
         }
       }
-      if (name && doesNodeHasName(node)) {
+      if (name && getIdentifier(node)) {
         const nodeName = node.name.getText()
         if (typeof name === "string" && nodeName !== name) {
           return

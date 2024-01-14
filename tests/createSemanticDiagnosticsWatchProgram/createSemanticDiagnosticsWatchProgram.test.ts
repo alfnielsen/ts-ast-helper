@@ -33,7 +33,7 @@ test("createSemanticDiagnosticsWatchProgram: rootPath", async () => {
         }
       },
       onReportDiagnostic({ diagnostic }) {
-        console.log("HER" + diagnostic.messageText)
+        // console.log("HER: " + diagnostic.messageText)
         if (/\/test\.ts$/.test(diagnostic.file?.fileName ?? "")) {
           fileName = diagnostic.file?.fileName ?? ""
           diagnostic.messageText = diagnosticMessageText

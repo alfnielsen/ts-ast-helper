@@ -1,28 +1,27 @@
 import * as ts from "typescript"
+import { getStartIndex } from "./getStartIndex"
 
 export function startBeforeIndex(node?: ts.Node, index: number = 0) {
   if (!node) return false
-  const sourceFile = node.getSourceFile()
-  const start = node.getStart(sourceFile)
+  const start = getStartIndex(node)
   return start < index
 }
 
 export function startBeforeFullIndex(node?: ts.Node, index: number = 0) {
   if (!node) return false
-  const start = node.getFullStart()
+  const start = getStartIndex(node)
   return start < index
 }
 
 export function startAfterIndex(node?: ts.Node, index: number = 0) {
   if (!node) return false
-  const sourceFile = node.getSourceFile()
-  const start = node.getStart(sourceFile)
+  const start = getStartIndex(node)
   return start > index
 }
 
 export function startAfterFullIndex(node?: ts.Node, index: number = 0) {
   if (!node) return false
-  const start = node.getFullStart()
+  const start = getStartIndex(node)
   return start > index
 }
 

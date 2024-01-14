@@ -1,6 +1,6 @@
 import * as ts from "typescript"
-import { doesNodeHasName } from "./nodeTests/hasName"
-import { getNodeName } from "./getNodeName"
+import { getIdentifier } from "./nodeUtils/getIdentifier"
+import { getNodeName } from "./nodeUtils/getNodeName"
 
 export const getBaseNodeInfo = (node: ts.Node) => {
   const text = node.getText()
