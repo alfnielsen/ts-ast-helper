@@ -24,10 +24,8 @@ export const createProgramFromString = (code: string, opt?: CreateProgramFromStr
     writeFile = () => {},
     getSourceFile = (name: string, languageVersion: ts.ScriptTarget) => {
       if (name === fileName) {
-        console.log("getSourceFile:name", name)
         return sourceFile
       } else {
-        console.log("getSourceFile:(defaultCompilerHost):name", name)
         return defaultCompilerHost.getSourceFile(name, languageVersion)
       }
     },

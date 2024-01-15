@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist",
-    "gtest": "runtf -p gtest -s --bun"
+    "tf": "runtf -s --bun"
   },
   "devDependencies": {
     "@types/bun": "latest",
