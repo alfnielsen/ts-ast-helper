@@ -3,8 +3,6 @@ import { createProgramFromString } from "./program/createProgramFromString"
 import { getNodeName } from "./nodeUtils/getNodeName"
 import { findNodeVisitor } from "./visitors/findNodeVisitor"
 import { endAfterIndex, endBeforeIndex, startAfterIndex, startBeforeIndex } from "./nodeUtils/testIndex"
-import { getIdentifier } from "./nodeUtils/getIdentifier"
-import { getChildren } from "./nodeUtils/getChildren"
 
 export type NodeMatchMethod = (opt: NodeMatchMethodArguments) => boolean
 export type NodeMatchMethodArguments = {
@@ -49,14 +47,6 @@ export default async function findNodeInString<TNode extends ts.Node = ts.Node>(
 
   return findNodeVisitor<TNode>(sourceFile, (node, parent, ancestors) => {
     if (startAfter !== undefined && !startAfterIndex(node, startAfter)) {
-      console.log("------node: ", ts.SyntaxKind[node.kind], "---------")
-      console.log("sourceFile", ts.SyntaxKind[sourceFile.kind])
-      const ss = node.getSourceFile()
-      if (!ss) {
-        console.log("node.getSourceFile", ss)
-      } else {
-        console.log("node.getSourceFile", ts.SyntaxKind[ss.kind])
-      }
       return
     }
     if (startBefore !== undefined && !startBeforeIndex(node, startBefore)) {

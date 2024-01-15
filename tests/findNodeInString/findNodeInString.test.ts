@@ -127,8 +127,8 @@ function fooFunc2(){}
   expect(getNodeName(node!)).toBe("foo")
 })
 
-test("findNodeInString - option: not", async () => {
-  const base = `//findNodeInString 
+test("findNodeInString - option: After", async () => {
+  const base = `//345678910
 function fooFunc(){
   let foo = 32
 }
@@ -139,7 +139,7 @@ function fooFunc2(){}
 
   const node = await findNodeInString(base, {
     name: /^foo/,
-    startAfter: 10,
+    startAfter: 20,
   })
 
   expect(node).toBeDefined()

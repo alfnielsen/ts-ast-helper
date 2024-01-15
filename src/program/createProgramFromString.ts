@@ -18,14 +18,16 @@ export type CreateProgramFromStringOptions = {
 
 export const createProgramFromString = (code: string, opt?: CreateProgramFromStringOptions): ts.Program => {
   let {
-    defaultCompilerHost = ts.createCompilerHost({}),
+    defaultCompilerHost = ts.createCompilerHost({}, true),
     fileName = "file.ts",
-    sourceFile = ts.createSourceFile(fileName, code, ts.ScriptTarget.Latest),
+    sourceFile = ts.createSourceFile(fileName, code, ts.ScriptTarget.Latest, true),
     writeFile = () => {},
     getSourceFile = (name: string, languageVersion: ts.ScriptTarget) => {
       if (name === fileName) {
+        console.log("getSourceFile:name", name)
         return sourceFile
       } else {
+        console.log("getSourceFile:(defaultCompilerHost):name", name)
         return defaultCompilerHost.getSourceFile(name, languageVersion)
       }
     },
