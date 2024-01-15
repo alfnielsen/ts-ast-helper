@@ -1,6 +1,6 @@
 import * as ts from "typescript"
 import fs from "fs"
-import { CreateProgramFromStringOptions, createProgramFromString } from "./createProgramFromString"
+import { createProgramFromString, type CreateProgramFromStringOptions } from "./createProgramFromString"
 
 export type CreateProgramFromPathOptions = CreateProgramFromStringOptions & {}
 export type ReturnType = ts.Program
