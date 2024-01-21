@@ -16,5 +16,17 @@
   },
   "dependencies": {
     "run-test-files": "^1.0.7"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "arrowParens": "always",
+    "bracketSameLine": false,
+    "jsxSingleQuote": true,
+    "singleQuote": true,
+    "quoteProps": "as-needed",
+    "trailingComma": "all",
+    "semi": false,
+    "useTabs": false
   }
 }

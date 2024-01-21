@@ -1,9 +1,12 @@
-import * as ts from "typescript"
+import * as ts from 'typescript'
 
 export type CreateProgramFromSourceFileOptions = {
   fileName?: string
   writeFile?: (filename: string, data: string) => void
-  getSourceFile?: (name: string, languageVersion: ts.ScriptTarget) => ts.SourceFile
+  getSourceFile?: (
+    name: string,
+    languageVersion: ts.ScriptTarget,
+  ) => ts.SourceFile
   getDefaultLibFileName?: () => string
   useCaseSensitiveFileNames?: () => boolean
   getCanonicalFileName?: (filename: string) => string
@@ -17,11 +20,11 @@ export type CreateProgramFromSourceFileOptions = {
 
 export const createProgramFromSourceFile = (
   sourceFile: ts.SourceFile,
-  opt?: CreateProgramFromSourceFileOptions
+  opt?: CreateProgramFromSourceFileOptions,
 ): ts.Program => {
   let {
     defaultCompilerHost = ts.createCompilerHost({}),
-    fileName = "file.ts",
+    fileName = 'file.ts',
     writeFile = () => {},
     getSourceFile = (name: string, languageVersion: ts.ScriptTarget) => {
       if (name === fileName) {
@@ -30,14 +33,14 @@ export const createProgramFromSourceFile = (
         return defaultCompilerHost.getSourceFile(name, languageVersion)
       }
     },
-    getDefaultLibFileName = () => "lib.d.ts",
+    getDefaultLibFileName = () => 'lib.d.ts',
     useCaseSensitiveFileNames = () => false,
     getCanonicalFileName = (filename: string) => filename,
-    getCurrentDirectory = () => "",
+    getCurrentDirectory = () => '',
     fileExists = () => true,
-    getNewLine = () => "\n",
+    getNewLine = () => '\n',
     getDirectories = () => [],
-    readFile = () => "",
+    readFile = () => '',
   } = opt ?? {}
 
   const customCompilerHost: ts.CompilerHost = {

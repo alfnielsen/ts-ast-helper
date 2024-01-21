@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test"
-import { createProgramFromString } from "../../src/program/createProgramFromString"
+import { createProgramFromString } from "../../src/base/program/createProgramFromString"
 
 test("createProgramFromString", async () => {
   const code = `console.log("hello world")`

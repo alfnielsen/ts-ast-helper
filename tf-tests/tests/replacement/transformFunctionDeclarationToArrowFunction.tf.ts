@@ -1,16 +1,16 @@
 import * as ts from "typescript"
 import findNodeInString from "../../../src/findNodeInString"
-import { replaceFunctionDeclarationWithArrowFunction } from "../../../src/replacement/replaceFunctionDeclarationWithArrowFunction"
-import { printNode } from "../../../src/printer/printNode"
+import { replaceFunctionDeclarationWithArrowFunction } from "../../../src/transforms/transformFunctionDeclarationToArrowFunction"
+import { printNode } from "../../../src/base/printer/printNode"
 
 const code = `
 import * as ts from "typescript"
 
 function foo() {
-    const a = 1
-    const b = 2
-    const c = 3
-    return a + b + c
+    const a = 1;
+    const b = 2;
+    const c = 3;
+    return a + b + c;
 }
 async function asyncFoo() {
     const a = 1

@@ -1,10 +1,13 @@
-import * as ts from "typescript"
+import * as ts from 'typescript'
 
 export type CreateProgramFromStringOptions = {
   fileName?: string
   sourceFile?: ts.SourceFile
   writeFile?: (filename: string, data: string) => void
-  getSourceFile?: (name: string, languageVersion: ts.ScriptTarget) => ts.SourceFile
+  getSourceFile?: (
+    name: string,
+    languageVersion: ts.ScriptTarget,
+  ) => ts.SourceFile
   getDefaultLibFileName?: () => string
   useCaseSensitiveFileNames?: () => boolean
   getCanonicalFileName?: (filename: string) => string
@@ -16,11 +19,19 @@ export type CreateProgramFromStringOptions = {
   defaultCompilerHost?: ts.CompilerHost
 }
 
-export const createProgramFromString = (code: string, opt?: CreateProgramFromStringOptions): ts.Program => {
+export const createProgramFromString = (
+  code: string,
+  opt?: CreateProgramFromStringOptions,
+): ts.Program => {
   let {
     defaultCompilerHost = ts.createCompilerHost({}, true),
-    fileName = "file.ts",
-    sourceFile = ts.createSourceFile(fileName, code, ts.ScriptTarget.Latest, true),
+    fileName = 'file.ts',
+    sourceFile = ts.createSourceFile(
+      fileName,
+      code,
+      ts.ScriptTarget.Latest,
+      true,
+    ),
     writeFile = () => {},
     getSourceFile = (name: string, languageVersion: ts.ScriptTarget) => {
       if (name === fileName) {
@@ -29,14 +40,14 @@ export const createProgramFromString = (code: string, opt?: CreateProgramFromStr
         return defaultCompilerHost.getSourceFile(name, languageVersion)
       }
     },
-    getDefaultLibFileName = () => "lib.d.ts",
+    getDefaultLibFileName = () => 'lib.d.ts',
     useCaseSensitiveFileNames = () => false,
     getCanonicalFileName = (filename: string) => filename,
-    getCurrentDirectory = () => "",
+    getCurrentDirectory = () => '',
     fileExists = () => true,
-    getNewLine = () => "\n",
+    getNewLine = () => '\n',
     getDirectories = () => [],
-    readFile = () => "",
+    readFile = () => '',
   } = opt ?? {}
 
   const customCompilerHost: ts.CompilerHost = {

@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test"
-import { createProgramFromString } from "../../src/program/createProgramFromString"
+import { createProgramFromString } from "../../src/base/program/createProgramFromString"
 import { getNodeBox } from "../../src/getNodeBox"
 
 test("createProgramFromString", async () => {

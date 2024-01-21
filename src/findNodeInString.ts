@@ -1,7 +1,7 @@
 import * as ts from "typescript"
-import { createProgramFromString } from "./program/createProgramFromString"
+import { createProgramFromString } from "./base/program/createProgramFromString"
 import { getNodeName } from "./nodeUtils/getNodeName"
-import { findNodeVisitor } from "./visitors/findNodeVisitor"
+import { findNodeVisitor } from "./base/visitors/findNodeVisitor"
 import { endAfterIndex, endBeforeIndex, startAfterIndex, startBeforeIndex } from "./nodeUtils/testIndex"
 
 export type NodeMatchMethod = (opt: NodeMatchMethodArguments) => boolean

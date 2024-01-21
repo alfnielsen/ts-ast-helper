@@ -1,18 +1,28 @@
-import * as ts from "typescript"
+import * as ts from 'typescript'
 
 export type WatchProgramOptions = {
   configPath?: string
   options?: ts.CompilerOptions
   formatHost?: ts.FormatDiagnosticsHost
-  onStatusChanged?: (opt: { diagnostic: ts.Diagnostic; line: number; character: number }) => void
-  onReportDiagnostic?: (opt: { diagnostic: ts.Diagnostic; line: number; character: number }) => void
+  onStatusChanged?: (opt: {
+    diagnostic: ts.Diagnostic
+    line: number
+    character: number
+  }) => void
+  onReportDiagnostic?: (opt: {
+    diagnostic: ts.Diagnostic
+    line: number
+    character: number
+  }) => void
   onCreateProgram?: (opt: {
     rootNames: ReadonlyArray<string> | undefined
     options?: ts.CompilerOptions
     host?: ts.CompilerHost
     oldProgram: ts.SemanticDiagnosticsBuilderProgram | undefined
   }) => void
-  onProgramCreated?: (opt: { program: ts.SemanticDiagnosticsBuilderProgram }) => void
+  onProgramCreated?: (opt: {
+    program: ts.SemanticDiagnosticsBuilderProgram
+  }) => void
 } & (
   | {
       rootFiles: string[]
@@ -25,12 +35,14 @@ export type WatchProgramOptions = {
 )
 
 const defaultFormatHost: ts.FormatDiagnosticsHost = {
-  getCanonicalFileName: path => path,
+  getCanonicalFileName: (path) => path,
   getCurrentDirectory: ts.sys.getCurrentDirectory,
   getNewLine: () => ts.sys.newLine,
 }
 
-export const createSemanticDiagnosticsWatchProgram = (opt: WatchProgramOptions) => {
+export const createSemanticDiagnosticsWatchProgram = (
+  opt: WatchProgramOptions,
+) => {
   let {
     configPath,
     options = {},
@@ -44,7 +56,8 @@ export const createSemanticDiagnosticsWatchProgram = (opt: WatchProgramOptions) 
     rootPath,
   } = opt
 
-  configPath ??= rootPath && ts.findConfigFile(rootPath, ts.sys.fileExists, "tsconfig.json")
+  configPath ??=
+    rootPath && ts.findConfigFile(rootPath, ts.sys.fileExists, 'tsconfig.json')
   if (!configPath) {
     throw new Error("Could not find a valid 'tsconfig.json'.")
   }
@@ -57,16 +70,21 @@ export const createSemanticDiagnosticsWatchProgram = (opt: WatchProgramOptions) 
       ts.sys,
       createProgram,
       reportDiagnostic,
-      reportWatchStatusChanged
+      reportWatchStatusChanged,
     )
     const origCreateProgram = host.createProgram
     const origPostProgramCreate = host.afterProgramCreate
-    host.createProgram = (rootNames: ReadonlyArray<string> | undefined, options, host, oldProgram) => {
+    host.createProgram = (
+      rootNames: ReadonlyArray<string> | undefined,
+      options,
+      host,
+      oldProgram,
+    ) => {
       // interception
       onCreateProgram?.({ rootNames, options, host, oldProgram })
       return origCreateProgram(rootNames, options, host, oldProgram)
     }
-    host.afterProgramCreate = program => {
+    host.afterProgramCreate = (program) => {
       // interception
       onProgramCreated?.({ program })
       origPostProgramCreate!(program)
@@ -80,16 +98,21 @@ export const createSemanticDiagnosticsWatchProgram = (opt: WatchProgramOptions) 
     ts.sys,
     createProgram,
     reportDiagnostic,
-    reportWatchStatusChanged
+    reportWatchStatusChanged,
   )
   const origCreateProgram = host.createProgram
   const origPostProgramCreate = host.afterProgramCreate
-  host.createProgram = (rootNames: ReadonlyArray<string> | undefined, options, host, oldProgram) => {
+  host.createProgram = (
+    rootNames: ReadonlyArray<string> | undefined,
+    options,
+    host,
+    oldProgram,
+  ) => {
     // interception
     onCreateProgram?.({ rootNames, options, host, oldProgram })
     return origCreateProgram(rootNames, options, host, oldProgram)
   }
-  host.afterProgramCreate = program => {
+  host.afterProgramCreate = (program) => {
     // interception
     onProgramCreated?.({ program })
     origPostProgramCreate!(program)

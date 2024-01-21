@@ -1,6 +1,6 @@
 import * as ts from "typescript"
 import { test, expect } from "bun:test"
-import { createSemanticDiagnosticsWatchProgram } from "../../src/program/createSemanticDiagnosticsWatchProgram"
+import { createSemanticDiagnosticsWatchProgram } from "../../src/base/program/createSemanticDiagnosticsWatchProgram"
 import { join } from "path"
 
 test("createSemanticDiagnosticsWatchProgram: rootPath", async () => {

@@ -8,7 +8,4 @@ export function visitor(root: ts.Node, predicate: (node: ts.Node, parent: ts.Nod
   }
   const nextAncestorList = [root]
   ts.forEachChild(root, child => visit(child, root, nextAncestorList))
-  // root.forEachChild(child => {
-  //   visit(child, root, nextAncestorList)
-  // })
 }

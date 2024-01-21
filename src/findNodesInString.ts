@@ -1,5 +1,5 @@
 import * as ts from "typescript"
-import { createProgramFromString } from "./program/createProgramFromString"
+import { createProgramFromString } from "./base/program/createProgramFromString"
 import { getIdentifier } from "./nodeUtils/getIdentifier"
 
 export type NodeMatchMethod = (opt?: NodeMatchMethodArguments) => boolean

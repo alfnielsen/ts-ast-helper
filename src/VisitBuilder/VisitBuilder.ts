@@ -1,7 +1,7 @@
 import * as ts from "typescript"
 import fs from "fs"
-import { createProgramFromString } from "../program/createProgramFromString"
-import { createProgramFromSourceFile } from "../program/createProgramFromSourceFile"
+import { createProgramFromString } from "../base/program/createProgramFromString"
+import { createProgramFromSourceFile } from "../base/program/createProgramFromSourceFile"
 
 export class VisitBuilder {
   private currentNode = new VisitBuilderNodeMatch(this, "0")

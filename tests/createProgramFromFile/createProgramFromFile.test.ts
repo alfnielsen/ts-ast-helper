@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test"
-import { createProgramFromFile } from "../../src/program/createProgramFromFile"
+import { createProgramFromFile } from "../../src/base/program/createProgramFromFile"
 import { join } from "path"
 
 test("createProgramFromFile", async () => {
