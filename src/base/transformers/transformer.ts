@@ -1,34 +1,11 @@
 import * as ts from 'typescript'
+import {
+  tranformWithState,
+  type TranformVisitorWithStatePredicate,
+} from './tranformWithState'
 
-const code = `
-        function subFn(a: number, b: number) {
-            return a - b;
-        }
-        let add = function addFn(a: number, b: number) {
-            const c = 10;
-            const d = a + 25;
-            return a + b + c;
-        }
-    
-    `
-// creat a source file from the code
-const sourceFile = ts.createSourceFile(
-  'test.ts',
-  code,
-  ts.ScriptTarget.ES2015,
-  true,
-)
-
-// transform the source file
-const transformedSourceFile = transform(sourceFile)
-
-// print the transformed source file
-const printer = ts.createPrinter()
-const result = printer.printFile(transformedSourceFile)
-console.log(result)
-
-function transformer(context: ts.TransformationContext) {
-  const visit: ts.Visitor = (node) => {
+export function transformer(context: ts.TransformationContext) {
+  const predicate: TranformVisitorWithStatePredicate = (node) => {
     if (ts.isVariableStatement(node)) {
       const varList: ts.VariableDeclaration[] = []
       const functionList: ts.FunctionExpression[] = []
@@ -78,8 +55,6 @@ function transformer(context: ts.TransformationContext) {
         ts.factory.createVariableDeclarationList(varList),
       )
     }
-
-    return ts.visitEachChild(node, visit, context)
   }
 
   return (node: ts.SourceFile) => {
@@ -87,7 +62,11 @@ function transformer(context: ts.TransformationContext) {
     context.startLexicalEnvironment()
 
     // visit each node in the file.
-    const updatedNode = ts.visitEachChild(node, visit, context)
+    const updatedNode = tranformWithState({
+      node: node,
+      context,
+      childePredicate: predicate,
+    })
 
     // End the lexical environment and collect any declarations (function declarations, variable declarations, etc) that were added.
     const declarations = context.endLexicalEnvironment() ?? []
@@ -103,11 +82,4 @@ function transformer(context: ts.TransformationContext) {
       node.libReferenceDirectives,
     )
   }
-}
-
-// run the transformer on the source file
-function transform(sourceFile: ts.SourceFile) {
-  const result = ts.transform(sourceFile, [transformer])
-  const transformedSourceFile = result.transformed[0] as ts.SourceFile
-  return transformedSourceFile
 }

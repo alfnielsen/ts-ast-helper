@@ -1,33 +1,13 @@
 import * as ts from 'typescript'
 
-const code = `
-        function subFn(a: number, b: number) {
-            return a - b;
-        }
-        let add = function addFn(a: number, b: number) {
-            const c = 10;
-            const d = a + 25;
-            return a + b + c;
-        }
-    
-    `
-// creat a source file from the code
-const sourceFile = ts.createSourceFile(
-  'test.ts',
-  code,
-  ts.ScriptTarget.ES2015,
-  true,
-)
-
-// transform the source file
-const transformedSourceFile = transform(sourceFile)
-
-// print the transformed source file
-const printer = ts.createPrinter()
-const result = printer.printFile(transformedSourceFile)
-console.log(result)
-
-function transformer(context: ts.TransformationContext) {
+export function transformer(
+  context: ts.TransformationContext,
+  predicate: (
+    node: ts.Node,
+    parent: ts.Node,
+    ancestors: ts.Node[],
+  ) => ts.Node | undefined,
+) {
   const visit: ts.Visitor = (node) => {
     if (ts.isVariableStatement(node)) {
       const varList: ts.VariableDeclaration[] = []
@@ -103,11 +83,4 @@ function transformer(context: ts.TransformationContext) {
       node.libReferenceDirectives,
     )
   }
-}
-
-// run the transformer on the source file
-function transform(sourceFile: ts.SourceFile) {
-  const result = ts.transform(sourceFile, [transformer])
-  const transformedSourceFile = result.transformed[0] as ts.SourceFile
-  return transformedSourceFile
 }

@@ -45,6 +45,16 @@ function transformer(context: ts.TransformationContext) {
         }
       }
 
+      const functionDeclaration = ts.factory.createFunctionDeclaration(
+        functionExpression.modifiers,
+        functionExpression.asteriskToken,
+        functionExpression.name as ts.Identifier,
+        functionExpression.typeParameters,
+        functionExpression.parameters,
+        functionExpression.type,
+        functionExpression.body,
+      )
+
       for (const functionExpression of functionList) {
         // create function declaration out of function expression
         const functionDeclaration = ts.factory.createFunctionDeclaration(
