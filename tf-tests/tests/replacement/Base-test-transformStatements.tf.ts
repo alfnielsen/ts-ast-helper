@@ -12,6 +12,13 @@ const code = `
             const d = a + 25;
             return a + b + c;
         }
+
+        let add2 = function addFn(a: number, b: number) {
+          const c = 10;
+          const d = a + 25;
+          return a + b + c;
+      }
+
     `
 // creat a source file from the code
 const sourceFile = ts.createSourceFile(

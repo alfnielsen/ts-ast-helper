@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist",
-    "tf": "runtf -s --bun"
+    "tf": "runtf -s -sn 3 --bun -np"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -15,7 +15,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "run-test-files": "^1.0.7"
+    "run-test-files": "^1.0.11"
   },
   "prettier": {
     "printWidth": 80,
