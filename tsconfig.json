@@ -26,6 +26,12 @@
     "strictPropertyInitialization": true,
     "strictBindCallApply": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": false
-  }
+    "noUnusedParameters": false,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "tests/**/*", "tf-tests/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

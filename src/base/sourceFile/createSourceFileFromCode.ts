@@ -14,7 +14,7 @@ export function createSourceFileFromCode(
   let {
     fileName = 'file.ts',
     languageVersionOrOptions = ts.ScriptTarget.Latest,
-    setParentNodes = false,
+    setParentNodes = true,
     scriptKind = ts.ScriptKind.TS,
   } = opt ?? {}
   const sourceFile = ts.createSourceFile(

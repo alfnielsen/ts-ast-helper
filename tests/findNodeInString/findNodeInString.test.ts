@@ -1,9 +1,9 @@
-import { test, expect } from "bun:test"
-import * as ts from "typescript"
-import findNodeInString from "../../src/findNodeInString"
-import { getNodeName } from "../../src/nodeUtils/getNodeName"
+import { test, expect } from 'bun:test'
+import * as ts from 'typescript'
+import findNodeInString from '../../src/findNodeInString'
+import { getNodeName } from '../../src/base/nodeProperties/getNodeName'
 
-test("findNodeInString - option: name", async () => {
+test('findNodeInString - option: name', async () => {
   const base = `
 function fooFunc(){
   let foo = 32
@@ -12,14 +12,16 @@ function fooFunc(){
   `
 
   const node = await findNodeInString(base, {
-    name: "foo",
+    name: 'foo',
   })
 
   expect(node).toBeDefined()
-  expect(ts.SyntaxKind[node!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.VariableDeclaration])
+  expect(ts.SyntaxKind[node!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.VariableDeclaration],
+  )
 })
 
-test("findNodeInString - option: kind", async () => {
+test('findNodeInString - option: kind', async () => {
   const base = `
 import { foo } from "foo"
 function fooFunc(){
@@ -30,25 +32,31 @@ function fooFunc(){
   `
   // string
   const node = await findNodeInString(base, {
-    kind: "FunctionDeclaration",
+    kind: 'FunctionDeclaration',
   })
   expect(node).toBeDefined()
-  expect(ts.SyntaxKind[node!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration])
+  expect(ts.SyntaxKind[node!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration],
+  )
   // ts.SyntaxKind
   const nodeSyn = await findNodeInString(base, {
     kind: ts.SyntaxKind.FunctionDeclaration,
   })
   expect(nodeSyn).toBeDefined()
-  expect(ts.SyntaxKind[nodeSyn!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration])
+  expect(ts.SyntaxKind[nodeSyn!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration],
+  )
   // array
   const nodeArray = await findNodeInString(base, {
-    kind: ["FunctionDeclaration", "ImportDeclaration"],
+    kind: ['FunctionDeclaration', 'ImportDeclaration'],
   })
   expect(nodeArray).toBeDefined()
-  expect(ts.SyntaxKind[nodeArray!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.ImportDeclaration])
+  expect(ts.SyntaxKind[nodeArray!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.ImportDeclaration],
+  )
 })
 
-test("findNodeInString - option: match", async () => {
+test('findNodeInString - option: match', async () => {
   const base = `
 function fooFunc(){
   let foo = 32
@@ -57,15 +65,17 @@ function fooFunc(){
   `
 
   const node = await findNodeInString(base, {
-    kind: "FunctionDeclaration",
+    kind: 'FunctionDeclaration',
     match: /let.*=\s+32/,
   })
 
   expect(node).toBeDefined()
-  expect(ts.SyntaxKind[node!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration])
+  expect(ts.SyntaxKind[node!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration],
+  )
 })
 
-test("findNodeInString - option: must", async () => {
+test('findNodeInString - option: must', async () => {
   const base = `
 function fooFunc(){
   let foo = 32
@@ -79,7 +89,7 @@ function fooFunc(){
         return false
       }
       const name = getNodeName(node)
-      if (!name || name !== "fooFunc") {
+      if (!name || name !== 'fooFunc') {
         return false
       }
       return true
@@ -87,7 +97,9 @@ function fooFunc(){
   })
 
   expect(node).toBeDefined()
-  expect(ts.SyntaxKind[node!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration])
+  expect(ts.SyntaxKind[node!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.FunctionDeclaration],
+  )
 
   const node2 = await findNodeInString(base, {
     must: ({ node }) => {
@@ -95,7 +107,7 @@ function fooFunc(){
         return false
       }
       const name = getNodeName(node)
-      if (!name || name !== "__fooFunc") {
+      if (!name || name !== '__fooFunc') {
         return false
       }
       return true
@@ -105,7 +117,7 @@ function fooFunc(){
   expect(node2).toBeUndefined()
 })
 
-test("findNodeInString - option: not", async () => {
+test('findNodeInString - option: not', async () => {
   const base = `
 function fooFunc(){
   let foo = 32
@@ -123,11 +135,13 @@ function fooFunc2(){}
   })
 
   expect(node).toBeDefined()
-  expect(ts.SyntaxKind[node!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.VariableDeclaration])
-  expect(getNodeName(node!)).toBe("foo")
+  expect(ts.SyntaxKind[node!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.VariableDeclaration],
+  )
+  expect(getNodeName(node!)).toBe('foo')
 })
 
-test("findNodeInString - option: After", async () => {
+test('findNodeInString - option: After', async () => {
   const base = `//345678910
 function fooFunc(){
   let foo = 32
@@ -143,6 +157,8 @@ function fooFunc2(){}
   })
 
   expect(node).toBeDefined()
-  expect(ts.SyntaxKind[node!.kind]).toBe(ts.SyntaxKind[ts.SyntaxKind.VariableDeclaration])
-  expect(getNodeName(node!)).toBe("foo")
+  expect(ts.SyntaxKind[node!.kind]).toBe(
+    ts.SyntaxKind[ts.SyntaxKind.VariableDeclaration],
+  )
+  expect(getNodeName(node!)).toBe('foo')
 })

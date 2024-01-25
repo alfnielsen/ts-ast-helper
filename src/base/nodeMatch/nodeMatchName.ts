@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { getNodeName } from '../../nodeUtils/getNodeName'
+import { getNodeName } from '../nodeProperties/getNodeName'
 
 export function nodeMatchName(node: ts.Node, name: string | RegExp): boolean {
   const nodeName = getNodeName(node)

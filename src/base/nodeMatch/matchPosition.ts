@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 
-export function mnodeStartBeforePosition(node: ts.Node, index: number) {
+export function nodeStartBeforePosition(node: ts.Node, index: number) {
   const start = node.getStart()
   return start < index
 }
