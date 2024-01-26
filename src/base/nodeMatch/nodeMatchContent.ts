@@ -8,7 +8,7 @@ import * as ts from 'typescript'
  * @param match string | RegExp
  * @returns
  */
-export function nodeTextContainsText(
+export function nodeMatchContent(
   node: ts.Node,
   match: string | RegExp,
 ): boolean {

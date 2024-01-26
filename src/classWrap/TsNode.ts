@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { nodeTextContainsText } from '../base/nodeMatch/nodeTextContainsText'
+import { nodeMatchContent } from '../base/nodeMatch/nodeMatchContent'
 import { nodeTextMatch } from '../base/nodeMatch/nodeTextMatch'
 
 export class TsNode {
@@ -15,13 +15,13 @@ export class TsNode {
   }
 
   contains(match: string | RegExp) {
-    if (!nodeTextContainsText(this.node, match)) {
+    if (!nodeMatchContent(this.node, match)) {
       this.matchedAllConditions = false
     }
     return this
   }
   dontContains(match: string | RegExp) {
-    if (nodeTextContainsText(this.node, match)) {
+    if (nodeMatchContent(this.node, match)) {
       this.matchedAllConditions = false
     }
     return this
