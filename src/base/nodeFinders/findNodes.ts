@@ -3,13 +3,15 @@ import {
   nodeMatchOptions,
   type NodeMatchOptions,
 } from 'src/base/nodeFinders/nodeMatchOptions'
-import { findNodeVisitor } from 'src/base/visitors/findNodeVisitor'
+import { findNodesVisitor } from 'src/base/visitors/findNodesVisitor'
 
 export type FindNodeOptions = NodeMatchOptions
 
-export function findNode<TType extends ts.Node = ts.Node>(
+export function findNodes<TType extends ts.Node = ts.Node>(
   rootNode: ts.Node,
   opt: NodeMatchOptions = {},
 ) {
-  return findNodeVisitor<TType>(rootNode, (node) => nodeMatchOptions(node, opt))
+  return findNodesVisitor<TType>(rootNode, (node) =>
+    nodeMatchOptions(node, opt),
+  )
 }

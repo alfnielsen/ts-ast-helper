@@ -6,7 +6,9 @@ export enum NodeTypeMap {
   Variable = 'Variable',
   Block = 'Block',
   Import = 'Import',
+  Identifier = 'Identifier',
 }
+
 export const NodeTypeToKindMap: Record<
   keyof typeof NodeTypeMap,
   ts.SyntaxKind[]
@@ -18,6 +20,7 @@ export const NodeTypeToKindMap: Record<
   ],
   [NodeTypeMap.Block]: [ts.SyntaxKind.Block],
   [NodeTypeMap.Import]: [ts.SyntaxKind.ImportDeclaration],
+  [NodeTypeMap.Identifier]: [ts.SyntaxKind.Identifier],
 } as const
 
 export function nodeMatchType(

@@ -10,8 +10,10 @@ import {
   type NodeTypeMap,
 } from 'src/base/nodeMatch/nodeMatchType'
 import { nodeNameContains } from 'src/base/nodeMatch/nodeNameContains'
-import { hasAllModifiers } from 'src/base/nodeProperties/hasAllModifiers'
-import { hasModifier } from 'src/base/nodeProperties/hasModifiers'
+import { hasModifiers } from 'src/base/nodeProperties/hasModifiers'
+import { hasModifier } from 'src/base/nodeProperties/hasModifier'
+import { hasOneOfModifiers } from 'src/base/nodeProperties/hasOneOfModifiers'
+import { getNodeName } from 'src/base/nodeProperties/getNodeName'
 
 export type NodeMatchOptions = {
   // node matcher
@@ -28,7 +30,9 @@ export type NodeMatchOptions = {
   oneOfNames?: (string | RegExp)[]
   export?: true
   async?: true
+  modifier?: ts.ModifierSyntaxKind
   modifiers?: ts.ModifierSyntaxKind[]
+  oneOfModifiers?: ts.ModifierSyntaxKind[]
   // custome matcher
   match?: (node: ts.Node) => boolean
   // relation matchers
@@ -50,7 +54,9 @@ const matchFunctionMap: Partial<
   oneOfTypes: nodeMatchOneOfTypes,
   matchContent: nodeMatchContent,
   contentContains: nodeMatchContent,
-  modifiers: hasAllModifiers,
+  modifier: hasModifier,
+  modifiers: hasModifiers,
+  oneOfModifiers: hasOneOfModifiers,
 } as const
 
 export type FindNodeOptionsFunction = (
@@ -71,7 +77,7 @@ export function nodeMatchOptions(
         !func(node, ...opt[propName])
       ) {
         return false
-      } else if (!func(node, ...opt[propName])) {
+      } else if (!func(node, opt[propName])) {
         return false
       }
     }

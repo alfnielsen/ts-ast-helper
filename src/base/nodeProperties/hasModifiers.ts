@@ -1,7 +1,13 @@
 import * as ts from 'typescript'
 import { getModifiers } from 'src/base/nodeProperties/getModifiers'
 
-export const hasModifier = (node: ts.Node, modifier: ts.ModifierSyntaxKind) => {
-  const found = getModifiers(node).some((child) => child.kind === modifier)
-  return found
+export const hasModifiers = (
+  node: ts.Node,
+  ...modifiers: ts.ModifierSyntaxKind[]
+) => {
+  const nodeModifiers = getModifiers(node)
+  const foundAll = modifiers.every((m) =>
+    nodeModifiers.some((nm) => nm.kind === m),
+  )
+  return foundAll
 }
