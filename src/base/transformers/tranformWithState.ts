@@ -131,7 +131,7 @@ export function tranformWithState<
         globalState,
         context,
         visitChildern: () => {
-          console.log('ROOT:visitChildern', ts.SyntaxKind[node.kind])
+          // console.log('ROOT:visitChildern', ts.SyntaxKind[node.kind])
           return ts.visitEachChild(
             node,
             createVisitor(rootNextState, false, childVisitor),
@@ -142,7 +142,7 @@ export function tranformWithState<
       let _rootVisitor = rootVisitor ?? childVisitor
       let rootUpdated = _rootVisitor(node, rootNextState)
       if (rootUpdated) {
-        console.log('ROOT:rootUpdated', ts.SyntaxKind[rootUpdated.kind])
+        // console.log('ROOT:rootUpdated', ts.SyntaxKind[rootUpdated.kind])
         return rootUpdated as TNode
       }
       // visitChildern not called, call it now

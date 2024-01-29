@@ -3,7 +3,7 @@ import {
   nodeMatchOptions,
   type NodeMatchOptions,
 } from 'src/base/nodeFinders/nodeMatchOptions'
-import { getAstChildren } from 'src/base/nodeProperties/getAstChildren'
+import { getAstChildren } from 'src/base/getters/getAstChildren'
 
 export type FindNodeOptions = NodeMatchOptions
 /**

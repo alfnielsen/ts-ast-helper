@@ -1,11 +1,11 @@
 import * as ts from 'typescript'
-import { getIdentifier } from './base/nodeProperties/getIdentifier'
-import { getNodeName } from './base/nodeProperties/getNodeName'
+import { getIdentifier } from './base/getters/getIdentifier'
+import { getName } from './base/getters/getName'
 
 export const getBaseNodeInfo = (node: ts.Node) => {
   const text = node.getText()
   const fullText = node.getFullText()
-  const name = getNodeName(node) ?? ''
+  const name = getName(node) ?? ''
   const fullStart = node.getFullStart()
   const start = node.getStart()
   const end = node.getEnd()

@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { getNodeName } from '../base/nodeProperties/getNodeName'
+import { getName } from '../base/getters/getName'
 import { printNode } from '../base/printer/printNode'
 import { transformNode } from '../base/transformers/transformNode'
 import { tranformWithState } from '../base/transformers/tranformWithState'
@@ -9,7 +9,7 @@ export const replaceFunctionDeclarationWithArrowFunction = (
   funcNode: ts.FunctionDeclaration,
 ) => {
   // extract
-  const name = getNodeName(funcNode)
+  const name = getName(funcNode)
   if (!name) {
     throw new Error('Could not get name of function declaration!')
   }

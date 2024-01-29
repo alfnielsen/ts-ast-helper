@@ -10,10 +10,9 @@ import {
   type NodeTypeMap,
 } from 'src/base/nodeMatch/nodeMatchType'
 import { nodeNameContains } from 'src/base/nodeMatch/nodeNameContains'
-import { hasModifiers } from 'src/base/nodeProperties/hasModifiers'
-import { hasModifier } from 'src/base/nodeProperties/hasModifier'
-import { hasOneOfModifiers } from 'src/base/nodeProperties/hasOneOfModifiers'
-import { getNodeName } from 'src/base/nodeProperties/getNodeName'
+import { hasModifiers } from 'src/base/nodeMatch/hasModifiers'
+import { hasModifier } from 'src/base/nodeMatch/hasModifier'
+import { hasOneOfModifiers } from 'src/base/nodeMatch/hasOneOfModifiers'
 
 export type NodeMatchOptions = {
   // node matcher

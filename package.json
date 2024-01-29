@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist",
-    "tf": "runtf -s -sn 3 --bun -np"
+    "tf": "runtf -s -sn 3 --bun -np",
+    "tfa": "runtf -s -sn 3 --bun -np -p action"
   },
   "devDependencies": {
     "@types/bun": "latest",

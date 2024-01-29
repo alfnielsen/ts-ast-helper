@@ -5,9 +5,7 @@ import type { NodeTypeMap } from 'src/base/nodeMatch/nodeMatchType'
 export type FindNodeTypeOptions = Omit<
   FindNodeOptions,
   'kind' | 'oneOfKinds' | 'type' | 'oneOfTypes'
-> & {
-  isVariableDeclaration?: true
-}
+> & {}
 
 export function findNodeType<TType extends ts.Node = ts.Node>(
   node: ts.Node,

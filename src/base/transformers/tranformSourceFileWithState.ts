@@ -15,13 +15,22 @@ export function tranformSourceFileWithState<
     sourceVisitor(node, { context, visitChildern }) {
       // Start a new lexical environment when beginning to process the source file.
       context.startLexicalEnvironment()
-
       // visit each node in the file.
       const updatedNode = visitChildern() as ts.SourceFile
 
       // End the lexical environment and collect any declarations (function declarations, variable declarations, etc) that were added.
       const declarations = context.endLexicalEnvironment() ?? []
       const statements = [...declarations, ...updatedNode.statements]
+
+      console.log(
+        'tranformSourceFileWithState-statements:',
+        statements.map((s) => ts.SyntaxKind[s.kind]),
+      )
+      console.log(
+        'isFunctionDeclaration:',
+        ts.isFunctionDeclaration(statements[0]),
+      )
+      console.log('isVariableStatement:', ts.isVariableStatement(statements[0]))
 
       return ts.factory.updateSourceFile(
         node,

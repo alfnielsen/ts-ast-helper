@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { getNodeName } from '../nodeProperties/getNodeName'
+import { getName } from '../getters/getName'
 
 /**
  * Test if the node have a name and if the name contians the input. \
@@ -12,7 +12,7 @@ export function nodeNameContains(
   node: ts.Node,
   input: string | RegExp,
 ): boolean {
-  const nodeName = getNodeName(node)
+  const nodeName = getName(node)
   if (!nodeName) {
     return false
   }

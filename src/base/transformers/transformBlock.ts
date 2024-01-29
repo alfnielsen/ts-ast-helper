@@ -5,7 +5,6 @@ export function transformBlock(blockNode: ts.Block) {
   if (statements.length === 0) {
     return blockNode
   }
-  console.log('new block statements', statements)
   return ts.factory.updateBlock(blockNode, statements)
 }
 
@@ -62,10 +61,3 @@ function updateVariableStatement(blockNode: ts.Block | ts.SourceFile) {
   }
   return statements
 }
-
-// print the transformed source file
-const printer = ts.createPrinter()
-const result = printer.printFile(transformedSourceFile)
-console.log('Alf Custom Transformer')
-console.log('======================')
-console.log(result)
