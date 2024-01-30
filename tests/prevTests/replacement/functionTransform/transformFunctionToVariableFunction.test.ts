@@ -1,45 +1,12 @@
 import * as ts from 'typescript'
 import { test, expect } from 'bun:test'
 import { createSourceFileFromCode } from 'src/base/sourceFile/createSourceFileFromCode'
-import { transformVariableFunctionToFunction } from 'src/base/transformers/specifiedTypes/transformVariableFunctionToFunction'
 import { expectCodeIsEquael } from 'tests/tests-util/tests-code-helper'
 import { findNodes } from 'src/base/nodeFinders/findNodes'
 import { printNode } from 'src/base/printer/printNode'
+import { transformFunctionToVariableFunction } from 'src/base/transformers/specifiedTypes/transformFunctionToVariableFunction'
 
 const globalScopeCode = `
-const foo1 = () => {
-  const a = 1
-  const b = 2
-  const c = 3
-  return a + b + c
-}
-export const foo2 = () => {
-  const a = 1
-  const b = 2
-  const c = 3
-  const f = () => { }
-  return a + b + c
-}
-const foo3 = async () => {
-  const a = 1
-  const b = 2
-  const c = 3
-  return a + b + c
-}
-export const foo4 = async () => {
-  const a = 1
-  const b = 2
-  const c = 3
-  return a + b + c
-}
-export function foo5(){
-  const a = 1
-  const b = 2
-  const c = 3
-  return a + b + c
-}
-`
-const globalScopeExceptedCode = `
 function foo1() {
   const a = 1
   const b = 2
@@ -65,11 +32,45 @@ export async function foo4() {
   const c = 3
   return a + b + c
 }
+export foo5 = () => {
+  const a = 1
+  const b = 2
+  const c = 3
+  return a + b + c
+}
+`
+const globalScopeExceptedCode = `
+const foo1 = () => {
+  const a = 1
+  const b = 2
+  const c = 3
+  return a + b + c
+}
+export const foo2 = () => {
+  const a = 1
+  const b = 2
+  const c = 3
+  const f = () => { }
+  return a + b + c
+}
+const foo3 = async () => {
+  const a = 1
+  const b = 2
+  const c = 3
+  return a + b + c
+}
+export const foo4 = async () => {
+  const a = 1
+  const b = 2
+  const c = 3
+  return a + b + c
+}
+
 `
 const blockScopeCode = `
 const foo1 = () => {
   let a = 1
-  const inner = () => {
+  function inner() {
     a += a*2
     if( a<100 ) {
       inner()
@@ -78,9 +79,9 @@ const foo1 = () => {
   inner()
   return a
 }
-const fooA1 = async () => {
+async function(){
   let a = 1
-  const inner = async () => {
+  async function inner(){
     a += a*2
     if( a<100 ) {
       inner()
@@ -91,7 +92,7 @@ const fooA1 = async () => {
 }
 function foo2() {
   let a = 1
-  function inner = () => {
+  const inner = () => {
     a += a*2
     if( a<100 ) {
       inner()
@@ -102,14 +103,14 @@ function foo2() {
 }
 `
 const blockScopeExceptedCode = `
-  function inner() {
+  const inner = () => {
     a += a * 2
     if( a<100 ) {
       inner()
 
     }
   }
-  async function inner() {
+  const inner = async () => {
     a += a * 2
     if( a<100 ) {
       inner()
@@ -119,85 +120,63 @@ const blockScopeExceptedCode = `
 
 `
 
-test('transformFunctionDeclarationToArrowFunction global scope', async () => {
+test('transformFunctionToVariableFunction global scope', async () => {
   // find in global scope
   const sourceFile = createSourceFileFromCode(globalScopeCode)
-  const varFuncList = await findNodes<ts.VariableStatement>(sourceFile, {
-    kind: 'VariableStatement',
+  const funcList = await findNodes<ts.FunctionDeclaration>(sourceFile, {
+    kind: 'FunctionDeclaration',
     match(node) {
       return ts.isSourceFile(node.parent)
     },
   })
   let result = ''
-  for (let varFunc of varFuncList) {
-    const isVariableStatement = ts.isVariableStatement(varFunc!)
-    expect(isVariableStatement).toBe(true)
-    // Real test:
-    const func = transformVariableFunctionToFunction(varFunc!)
-    // asserts
-    expect(func).toBeDefined()
+  for (let func of funcList) {
     const isFunctionDeclaration = ts.isFunctionDeclaration(func!)
     expect(isFunctionDeclaration).toBe(true)
-    const funcString = printNode(func!, sourceFile)
-    result += funcString + '\n'
+    // Real test:
+    const varFunc = transformFunctionToVariableFunction(func!)
+    // asserts
+    expect(varFunc).toBeDefined()
+    const isVariableStatement = ts.isVariableStatement(varFunc!)
+    expect(isVariableStatement).toBe(true)
+    const varFuncString = printNode(varFunc!, sourceFile)
+    result += varFuncString + '\n'
   }
 
   expectCodeIsEquael(result, globalScopeExceptedCode, true)
 })
 
-test('transformFunctionDeclarationToArrowFunction block scope', async () => {
+test('transformFunctionToVariableFunction block scope', async () => {
   // find in global scope
   const sourceFile = createSourceFileFromCode(blockScopeCode)
-  const varFuncList = await findNodes<ts.VariableStatement>(sourceFile, {
-    kind: 'VariableStatement',
+  const funcList = await findNodes<ts.FunctionDeclaration>(sourceFile, {
+    kind: 'FunctionDeclaration',
     match(node) {
       if (!ts.isBlock(node.parent)) {
         // console.log('Not in a block!')
         return false
       }
-      if (!ts.isVariableStatement(node)) {
+      if (!ts.isFunctionDeclaration(node)) {
         // console.log('Not VariableStatement!')
         return false
       }
-      if (node.declarationList.declarations.length !== 1) {
-        // console.log(
-        //   `node.declarationList.declarations is not 1! (count: ${node.declarationList.declarations.length} )`,
-        // )
-        return false
-      }
-      if (!node.declarationList.declarations[0].initializer) {
-        // console.log(`missing initializer`)
-        return false
-      }
-
-      if (
-        !ts.isArrowFunction(node.declarationList.declarations[0].initializer)
-      ) {
-        // console.log(
-        //   `Not a arrowFunction (kind: ${nodeKind(
-        //     node.declarationList.declarations[0],
-        //   )} )`,
-        // )
-        return false
-      }
-
       return true
     },
   })
   let result = ''
-  expect(varFuncList).toBeDefined()
-  expect(varFuncList.length).toBe(2)
-  for (let varFunc of varFuncList) {
-    const isVariableStatement = ts.isVariableStatement(varFunc!)
-    expect(isVariableStatement).toBe(true)
-    // Real test:
-    const func = transformVariableFunctionToFunction(varFunc!)
-    // asserts
-    expect(func).toBeDefined()
+  expect(funcList).toBeDefined()
+  expect(funcList.length).toBe(2)
+  for (let func of funcList) {
     const isFunctionDeclaration = ts.isFunctionDeclaration(func!)
     expect(isFunctionDeclaration).toBe(true)
-    const funcString = printNode(func!, sourceFile)
-    result += funcString + '\n'
+    // Real test:
+    const varfunc = transformFunctionToVariableFunction(func!)
+    // asserts
+    expect(varfunc).toBeDefined()
+    const isVariableStatement = ts.isVariableStatement(varfunc!)
+    expect(isVariableStatement).toBe(true)
+    const varFuncString = printNode(varfunc!, sourceFile)
+    result += varFuncString + '\n'
   }
 
   expectCodeIsEquael(result, blockScopeExceptedCode, true)

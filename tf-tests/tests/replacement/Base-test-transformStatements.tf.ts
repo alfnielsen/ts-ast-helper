@@ -1,6 +1,6 @@
+import { transformStatements } from 'src/base/transform/transformStatements'
+import { tranformWithState } from 'src/base/transformers/tranformWithState'
 import * as ts from 'typescript'
-import { tranformWithState } from '../../../src/base/transformers/tranformWithState'
-import { transformStatements } from '../../../src/base/transformers/transformStatements'
 
 const code = `
         function subAdd(a: number, b: number) {

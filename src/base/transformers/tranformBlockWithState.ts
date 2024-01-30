@@ -4,12 +4,10 @@ import {
   type TranformVisitorWithStateOptions,
 } from './tranformWithState'
 
-export function tranformSourceFileWithState<
+export function tranformBlockWithState<
   TState extends object = {},
   TGlobalState extends object = {},
->(
-  options: TranformVisitorWithStateOptions<ts.SourceFile, TState, TGlobalState>,
-) {
+>(options: TranformVisitorWithStateOptions<ts.Block, TState, TGlobalState>) {
   return tranformWithState({
     ...options,
     sourceVisitor(node, { context, visitChildern }) {
@@ -22,15 +20,7 @@ export function tranformSourceFileWithState<
       const declarations = context.endLexicalEnvironment() ?? []
       const statements = [...declarations, ...updatedNode.statements]
 
-      return ts.factory.updateSourceFile(
-        node,
-        statements,
-        node.isDeclarationFile,
-        node.referencedFiles,
-        node.typeReferenceDirectives,
-        node.hasNoDefaultLib,
-        node.libReferenceDirectives,
-      )
+      return ts.factory.updateBlock(node, statements)
     },
   })
 }

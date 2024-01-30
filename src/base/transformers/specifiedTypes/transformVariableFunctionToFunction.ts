@@ -1,9 +1,8 @@
-import { printNode } from 'src/base/printer/printNode'
-import { tranformSourceFileWithState } from 'src/base/transformers/tranformSourceFileWithState'
-import { tranformWithState } from 'src/base/transformers/tranformWithState'
-import { transformCodeToSourceFile } from 'src/base/transformers/transformCodeToSourceFile'
-import { transformStatements } from 'src/base/transformers/transformStatements'
 import * as ts from 'typescript'
+import { printNode } from 'src/base/printer/printNode'
+import { hasModifier } from 'src/base/nodeMatch/hasModifier'
+import { getModifiers } from 'src/base/getters/getModifiers'
+import { tranformBlockOrSourceFileWithState } from 'src/base/transformers/tranformBlockOrSourceFileWithState'
 
 /**
  * Transform a VariableStatement with one varibleDefinition that hold a function, \
@@ -21,27 +20,27 @@ import * as ts from 'typescript'
  * @example
  * var foo = () =>{}
  * function foo(){}
- * @param varStatment
+ * @param varStatment ts.VariableStatement
  */
 export function transformVariableFunctionToFunction(
   varStatment: ts.VariableStatement,
+  sourceFile?: ts.SourceFile,
 ) {
-  const scope = varStatment.parent
-  if (!scope || !ts.isSourceFile(scope)) {
+  const scope = sourceFile ?? varStatment.parent
+  if (!scope || (!ts.isSourceFile(scope) && !ts.isBlock(scope))) {
+    console.log('scope:\n', printNode(scope))
     throw new Error(
-      'Variable Statment is not in a valid scope (SourceFile or Block)',
+      'Variable Statment is not in a valid scope (SourceFile, Block)',
     )
   }
-  let ref: ts.FunctionDeclaration | undefined
+  let funcRef: ts.FunctionDeclaration | undefined
   // transform the scope / parent:
-  let updatedSource = tranformSourceFileWithState({
+  tranformBlockOrSourceFileWithState({
     node: scope,
     visitor(node, { parent, context, visitChildern }) {
       if (node !== varStatment) {
         return
       }
-      console.log('node.kind:', ts.SyntaxKind[node.kind])
-      console.log('match object ref::', node === varStatment)
       if (!varStatment.declarationList.declarations) {
         throw new Error('variable definition is not a function')
       }
@@ -49,20 +48,30 @@ export function transformVariableFunctionToFunction(
         if (!d.initializer) {
           throw new Error('variable definition is not a function')
         }
-        console.log('t1:', ts.SyntaxKind[d.initializer.kind])
-
         if (
           !ts.isFunctionExpression(d.initializer) &&
           !ts.isArrowFunction(d.initializer)
         ) {
+          console.log('variable:', printNode(varStatment))
+          console.log('variable declaration:', printNode(d))
+          console.log('variable initializer:', printNode(d.initializer))
           throw new Error('variable definition is not a function')
         }
 
         const func = d.initializer
-        ref = ts.factory.createFunctionDeclaration(
-          func.modifiers,
+        // transfor modifiers from the variable to the function (export)
+        const isExported = hasModifier(varStatment, ts.SyntaxKind.ExportKeyword)
+        const modifiers = getModifiers(func)
+        if (isExported) {
+          modifiers.unshift(
+            ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
+          )
+        }
+
+        funcRef = ts.factory.createFunctionDeclaration(
+          modifiers,
           func.asteriskToken,
-          func.name as ts.Identifier,
+          d.name as ts.Identifier, //func.name as ts.Identifier,
           func.typeParameters,
           func.parameters,
           func.type,
@@ -72,16 +81,11 @@ export function transformVariableFunctionToFunction(
                 ts.factory.createReturnStatement(func.body),
               ]),
         )
-        console.log('ref:', ts.SyntaxKind[ref.kind])
-        return ref
+
+        return funcRef
       })
-      console.log('funcs[0]:', ts.SyntaxKind[funcs[0].kind])
-      console.log('------------------')
-      printNode(funcs[0], scope)
-      console.log('------------------')
       return funcs[0]
     },
   })
-  console.log('updatedSource:\n', updatedSource.getText())
-  return ref
+  return funcRef
 }
