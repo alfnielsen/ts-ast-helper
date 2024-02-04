@@ -8,6 +8,7 @@ export const tfTestsPath = join(rootPath, 'tf-tests')
 export const basePath = join(srcPath, 'base')
 export const baseNodeMatchPath = join(basePath, 'nodeMatch')
 export const experimentalPath = join(srcPath, 'experimental')
+export const utilPath = join(srcPath, 'util')
 
 export const paths = {
   srcPath,
@@ -18,6 +19,7 @@ export const paths = {
   templatesPath,
   baseNodeMatchPath,
   experimentalPath,
+  utilPath,
 }
 
 export default paths

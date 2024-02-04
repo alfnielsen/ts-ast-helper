@@ -42,6 +42,7 @@ export type TranformVisitorWithStateOptions<
     TState,
     TGlobalState
   >
+  context?: ts.TransformationContext
   ancestorsState?: TState
   globalState?: TGlobalState
   compilerOptions?: ts.CompilerOptions

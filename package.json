@@ -1,6 +1,7 @@
 {
   "name": "ts-ast-helper",
   "module": "src/index.ts",
+  "version": "0.0.1",
   "exports": {
     ".": {
       "import": "./src/index.ts",
@@ -9,14 +10,21 @@
     "./src/experimental.ts": {
       "import": "./src/experimental.ts",
       "require": "./dist/experimental.js"
+    },
+    "./src/util.ts": {
+      "import": "./src/util.ts",
+      "require": "./dist/util.js"
     }
   },
   "type": "module",
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir ./dist",
-    "build:experimantal": "bun build ./src/experimantal.ts --outdir ./dist",
+    "build": "bun run build:base && bun run build:experimental && bun run build:util",
+    "build:base": "bun build ./src/index.ts --outdir ./dist  --declaration",
+    "build:experimental": "bun build ./src/experimental.ts --outdir ./dist",
+    "build:util": "bun build ./src/util.ts --outdir ./dist",
     "tf": "runtf -s -sn 3 --bun -np",
-    "tfa": "runtf -s -sn 3 --bun -np -p action"
+    "tfa": "runtf -s -sn 3 --bun -np -p action",
+    "publish": "npm publish --access public"
   },
   "devDependencies": {
     "@types/bun": "latest",

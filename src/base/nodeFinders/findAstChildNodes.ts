@@ -5,7 +5,6 @@ import {
 } from 'src/base/nodeFinders/nodeMatchOptions'
 import { getAstChildren } from 'src/base/getters/getAstChildren'
 
-export type FindNodeOptions = NodeMatchOptions
 /**
  * Find all of node's Ast children matching the match options. \
  * The children list comes from getAstChildren \
@@ -14,7 +13,7 @@ export type FindNodeOptions = NodeMatchOptions
  * @param opt
  * @returns
  */
-export function findAstChildNode<TType extends ts.Node = ts.Node>(
+export function findAstChildNodes<TType extends ts.Node = ts.Node>(
   parentNode: ts.Node,
   opt: NodeMatchOptions = {},
 ) {

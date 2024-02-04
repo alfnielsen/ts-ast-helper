@@ -1,8 +1,16 @@
-import * as ts from "typescript"
+import * as ts from 'typescript'
 
-function transformCode(code: string, transform: (sourceFile: ts.SourceFile) => ts.SourceFile) {
+function transformCode(
+  code: string,
+  transform: (sourceFile: ts.SourceFile) => ts.SourceFile,
+) {
   // creat a source file from the code
-  const sourceFile = ts.createSourceFile("file.ts", code, ts.ScriptTarget.ES2015, true)
+  const sourceFile = ts.createSourceFile(
+    'file.ts',
+    code,
+    ts.ScriptTarget.ES2015,
+    true,
+  )
   // transform the source file
   const transformedSourceFile = transform(sourceFile)
 
@@ -32,7 +40,7 @@ const code = `
     `
 
 export function transformer(context: ts.TransformationContext) {
-  const visit: ts.Visitor = node => {
+  const visit: ts.Visitor = (node) => {
     if (ts.isVariableStatement(node)) {
       const varList: ts.VariableDeclaration[] = []
       const functionList: ts.FunctionExpression[] = []
@@ -58,7 +66,7 @@ export function transformer(context: ts.TransformationContext) {
           functionExpression.typeParameters,
           functionExpression.parameters,
           functionExpression.type,
-          functionExpression.body
+          functionExpression.body,
         )
 
         // hoist the function declaration to the top of the containing scope (file)
@@ -76,7 +84,11 @@ export function transformer(context: ts.TransformationContext) {
         return undefined
       }
 
-      return ts.factory.updateVariableStatement(node, node.modifiers, ts.factory.createVariableDeclarationList(varList))
+      return ts.factory.updateVariableStatement(
+        node,
+        node.modifiers,
+        ts.factory.createVariableDeclarationList(varList),
+      )
     }
 
     return ts.visitEachChild(node, visit, context)
@@ -100,7 +112,7 @@ export function transformer(context: ts.TransformationContext) {
       node.referencedFiles,
       node.typeReferenceDirectives,
       node.hasNoDefaultLib,
-      node.libReferenceDirectives
+      node.libReferenceDirectives,
     )
   }
 }

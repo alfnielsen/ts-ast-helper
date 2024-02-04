@@ -1,7 +1,7 @@
-import * as ts from "typescript"
-import findNodeInString from "../../../src/findNodeInString"
-import { replaceFunctionDeclarationWithArrowFunction } from "../../../src/transforms/transformFunctionDeclarationToArrowFunction"
-import { printNode } from "../../../src/base/printer/printNode"
+import * as ts from 'typescript'
+import findNodeInString from '../../../src/findNodeInString'
+import { replaceFunctionDeclarationWithArrowFunction } from '../../../src/experimental/transforms/transformFunctionDeclarationToArrowFunction'
+import { printNode } from '../../../src/base/printer/printNode'
 
 const code = `
 import * as ts from "typescript"
@@ -34,39 +34,41 @@ export async function exportAsyncFoo() {
 
 `
 const foo = await findNodeInString<ts.FunctionDeclaration>(code, {
-  kind: "FunctionDeclaration",
-  name: "foo",
+  kind: 'FunctionDeclaration',
+  name: 'foo',
 })
 const trFoo = replaceFunctionDeclarationWithArrowFunction(foo!)
-console.log("---------- fooText ----------")
+console.log('---------- fooText ----------')
 console.log(foo?.getFullText())
 console.log(printNode(trFoo))
 
 const asyncFoo = await findNodeInString<ts.FunctionDeclaration>(code, {
-  kind: "FunctionDeclaration",
-  name: "asyncFoo",
+  kind: 'FunctionDeclaration',
+  name: 'asyncFoo',
 })
 const trAsyncFoo = replaceFunctionDeclarationWithArrowFunction(asyncFoo!)
-console.log("---------- asyncFooText ----------")
+console.log('---------- asyncFooText ----------')
 console.log(asyncFoo?.getFullText())
 console.log(printNode(trAsyncFoo))
 //console.log(trAsyncFoo?.getFullText())
 
 const exportFoo = await findNodeInString<ts.FunctionDeclaration>(code, {
-  kind: "FunctionDeclaration",
-  name: "exportFoo",
+  kind: 'FunctionDeclaration',
+  name: 'exportFoo',
 })
 const trExportFoo = replaceFunctionDeclarationWithArrowFunction(exportFoo!)
 
-console.log("---------- exportFooText ----------")
+console.log('---------- exportFooText ----------')
 console.log(exportFoo?.getFullText())
 console.log(printNode(trExportFoo))
 
 const exportAsyncFoo = await findNodeInString<ts.FunctionDeclaration>(code, {
-  kind: "FunctionDeclaration",
-  name: "exportAsyncFoo",
+  kind: 'FunctionDeclaration',
+  name: 'exportAsyncFoo',
 })
-const trExportAsyncFoo = replaceFunctionDeclarationWithArrowFunction(exportAsyncFoo!)
-console.log("---------- exportAsyncFooText ----------")
+const trExportAsyncFoo = replaceFunctionDeclarationWithArrowFunction(
+  exportAsyncFoo!,
+)
+console.log('---------- exportAsyncFooText ----------')
 console.log(exportAsyncFoo?.getFullText())
 console.log(printNode(trExportAsyncFoo))

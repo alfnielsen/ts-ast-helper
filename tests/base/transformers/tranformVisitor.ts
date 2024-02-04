@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import * as ts from 'typescript'
-import { tranformVisitor } from 'src/base/transformers/tranformVisitor.ts'
+import { tranformVisitor } from 'src/base/transformers/tranformVisitor.dev'
 
 test('test tranformVisitor', async () => {
   const code = `

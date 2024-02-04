@@ -65,7 +65,7 @@ export function transformer(context: ts.TransformationContext) {
     const updatedNode = tranformWithState({
       node: node,
       context,
-      childePredicate: predicate,
+      visitor: predicate,
     })
 
     // End the lexical environment and collect any declarations (function declarations, variable declarations, etc) that were added.

@@ -1,29 +1,18 @@
+import type {
+  ChildrenVisitor,
+  TranformVisitorWithStateOptions,
+  TranformVisitorWithStatePredicate,
+  VisitorState,
+} from 'src/base/transformers/tranformWithState'
 import * as ts from 'typescript'
 
-export type TranformVisitorWithStateOptions<
-  TNode extends ts.Node = ts.Node,
-  TState extends object = {},
-  TGlobalState extends object = {},
-> = {
-  node: TNode
-  sourceVisitor?: TranformVisitorWithStatePredicate<
-    TNode,
-    TNode,
-    TState,
-    TGlobalState
-  >
-  visitor: TranformVisitorWithStatePredicate<
-    ts.Node,
-    ts.Node,
-    TState,
-    TGlobalState
-  >
-  ancestorsState?: TState
-  globalState?: TGlobalState
-  compilerOptions?: ts.CompilerOptions
-}
+/**
+ *  UNDER DEVELOPMENT
+ * @param options
+ * @returns
+ */
 
-export function tranformWithState<
+export function tranformVisitor<
   TNode extends ts.Node = ts.Node,
   TState extends object = {},
   TGlobalState extends object = {},

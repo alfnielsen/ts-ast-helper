@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
-import { getName } from '../base/getters/getName'
-import { printNode } from '../base/printer/printNode'
-import { tranformWithState } from '../base/transformers/tranformWithState'
+import { getName } from '../../base/getters/getName'
+import { printNode } from '../../base/printer/printNode'
+import { tranformWithState } from '../../base/transformers/tranformWithState'
 
 // Replace functionDeclaration with a arrow functon assigned to a variableDeclaration (with the same name)
 export const replaceFunctionDeclarationWithArrowFunction = (

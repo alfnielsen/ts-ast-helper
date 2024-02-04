@@ -4,8 +4,6 @@ import {
   type FindNodeTypeOptions,
 } from 'src/base/nodeFinders/specifiedTypes/findOne/findNodeType'
 
-export type FindFunctionOptions = FindNodeTypeOptions
-
-export function findFunction(rootNode: ts.Node, opt: FindFunctionOptions = {}) {
+export function findFunction(rootNode: ts.Node, opt: FindNodeTypeOptions = {}) {
   return findNodeType<ts.FunctionDeclaration>(rootNode, 'Function', opt)
 }

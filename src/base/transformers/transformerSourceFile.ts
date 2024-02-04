@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 
-export function transformer(
+export function transformerSourceFile(
   context: ts.TransformationContext,
   predicate: (
     node: ts.Node,

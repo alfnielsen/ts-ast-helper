@@ -5,8 +5,6 @@ import {
 } from 'src/base/nodeFinders/nodeMatchOptions'
 import { findNodeVisitor } from 'src/base/visitors/findNodeVisitor'
 
-export type FindNodeOptions = NodeMatchOptions
-
 export function findNode<TType extends ts.Node = ts.Node>(
   rootNode: ts.Node,
   opt: NodeMatchOptions = {},

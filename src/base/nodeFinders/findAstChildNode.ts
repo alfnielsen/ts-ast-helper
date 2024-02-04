@@ -5,7 +5,6 @@ import {
 } from 'src/base/nodeFinders/nodeMatchOptions'
 import { getAstChildren } from 'src/base/getters/getAstChildren'
 
-export type FindNodeOptions = NodeMatchOptions
 /**
  * Find first of node's Ast child matching the match options. \
  * The children list comes from getAstChildren \

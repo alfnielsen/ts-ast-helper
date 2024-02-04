@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 
-export type CreateProgramFromSourceFileOptions = {
+export type CreateProgramFromNodeWithSourceFileOptions = {
   fileName?: string
   writeFile?: (filename: string, data: string) => void
   getSourceFile?: (
@@ -20,7 +20,7 @@ export type CreateProgramFromSourceFileOptions = {
 
 export const createProgramFromNodeWithSourceFile = (
   node: ts.Node,
-  opt?: CreateProgramFromSourceFileOptions,
+  opt?: CreateProgramFromNodeWithSourceFileOptions,
 ): ts.Program => {
   const sourceFile = node.getSourceFile()
   let {
