@@ -25,6 +25,12 @@ function getType(root: string, note: string, exclude?: RegExp) {
 }
 
 let content = getType(paths.basePath, 'base', /\.dev\.ts$/)
+content =
+  `// experimental
+export * as experimental from 'src/experimental'
+export * as util from 'src/util'
+
+` + content
 let baseExportPath = join(paths.srcPath, 'index.ts')
 Bun.write(baseExportPath, content)
 
