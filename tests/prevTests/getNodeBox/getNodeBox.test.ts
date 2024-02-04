@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import { createProgramFromString } from '../../../src/base/program/createProgramFromString'
-import { getNodeBox } from '../../../src/getNodeBox'
+import { getNodeBox } from '../../../src/nodeUtils/getNodeBox'
 
 test('createProgramFromString', async () => {
   const base = `123456789012345678901234567890`
