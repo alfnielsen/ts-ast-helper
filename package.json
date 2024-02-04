@@ -1,7 +1,8 @@
 {
   "name": "ts-ast-helper",
   "module": "src/index.ts",
-  "version": "0.0.3",
+  "version": "0.0.4",
+  "types": "types/index.d.ts",
   "exports": {
     ".": {
       "import": "./src/index.ts",
@@ -22,6 +23,11 @@
     "build:base": "bun build ./src/index.ts --outdir ./dist  --declaration",
     "build:experimental": "bun build ./src/experimental.ts --outdir ./dist",
     "build:util": "bun build ./src/util.ts --outdir ./dist",
+    "build:definitions:base": "tsc src/base.ts --declaration --allowJs --emitDeclarationOnly --outDir types --skipLibCheck",
+    "build:definitions:experimental": "tsc src/experimental.ts --declaration --allowJs --emitDeclarationOnly --outDir types --skipLibCheck",
+    "build:definitions:util": "tsc src/util.ts --declaration --allowJs --emitDeclarationOnly --outDir types --skipLibCheck",
+    "build:definitions": "bun run build:definitions:base && bun run build:definitions:experimental && bun run build:definitions:util",
+    "build:definitions:all": "tsc src/**/*.ts --declaration --emitDeclarationOnly --outDir types --skipLibCheck",
     "tf": "runtf -s -sn 3 --bun -np",
     "tfa": "runtf -s -sn 3 --bun -np -p action",
     "publish": "npm publish --access public"

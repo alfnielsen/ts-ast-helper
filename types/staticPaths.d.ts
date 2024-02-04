@@ -1,0 +1,21 @@
+export declare const srcPath: string;
+export declare const rootPath: string;
+export declare const templatesPath: string;
+export declare const testsPath: string;
+export declare const tfTestsPath: string;
+export declare const basePath: string;
+export declare const baseNodeMatchPath: string;
+export declare const experimentalPath: string;
+export declare const utilPath: string;
+export declare const paths: {
+    srcPath: string;
+    rootPath: string;
+    basePath: string;
+    testsPath: string;
+    tfTestsPath: string;
+    templatesPath: string;
+    baseNodeMatchPath: string;
+    experimentalPath: string;
+    utilPath: string;
+};
+export default paths;
