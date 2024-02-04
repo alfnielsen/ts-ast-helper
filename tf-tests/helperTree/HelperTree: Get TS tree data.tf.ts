@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { Tree } from 'src/helperTree/HTree'
+import { Tree } from 'src/experimental/helperTree/HTree'
 
 const code = `
 const code = \`

@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import { nodeKind } from 'src/base/printer/nodeKind'
-import { getAncestors } from 'src/nodeUtils/getAncestors'
+import { getAncestors } from 'src/base/getters/getAncestors'
 
 export function printSimpleAncestorsList(node: ts.Node) {
   getAncestors(node)

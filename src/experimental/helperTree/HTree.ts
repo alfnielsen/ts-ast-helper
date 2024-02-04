@@ -7,7 +7,7 @@ import {
   type LogColor,
   log,
 } from 'src/util/LogUtil'
-import { HNode } from 'src/helperTree/HNode'
+import { HNode } from 'src/experimental/helperTree/HNode'
 import { isType } from 'src/util/Checks'
 
 export type HTreeVisitOptions = {

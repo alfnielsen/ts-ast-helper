@@ -5,7 +5,7 @@ import { tranformBlockOrSourceFileWithState } from 'src/base/transformers/tranfo
 import { nodeKind } from 'src/base/printer/nodeKind'
 import { getAstChildren } from 'src/base/getters/getAstChildren'
 import { printSimpleAst } from 'src/base/printer/printSimpleAst'
-import { getGrandChildren } from 'src/nodeUtils/getGrandChildren'
+import { getGrandChildren } from 'src/base/getters/getGrandChildren'
 
 /**
  * NOTE: In Development \

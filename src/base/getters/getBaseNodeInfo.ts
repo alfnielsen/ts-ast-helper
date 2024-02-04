@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { getName } from '../base/getters/getName'
+import { getName } from './getName'
 import { getModifiers } from 'src/base/getters/getModifiers'
 import { getParameters } from 'src/base/getters/getParameters'
 

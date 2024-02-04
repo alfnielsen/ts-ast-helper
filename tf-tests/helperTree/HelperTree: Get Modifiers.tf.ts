@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { Tree } from 'src/helperTree/HTree'
+import { Tree } from 'src/experimental/helperTree/HTree'
 
 const code = `
 export async function foo1(input: string, ...rest: number[]) {

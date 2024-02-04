@@ -1,10 +1,10 @@
-import * as ts from "typescript"
-import fs from "fs"
-import { createProgramFromString } from "../base/program/createProgramFromString"
-import { createProgramFromSourceFile } from "../base/program/createProgramFromSourceFile"
+import * as ts from 'typescript'
+import fs from 'fs'
+import { createProgramFromString } from '../../base/program/createProgramFromString'
+import { createProgramFromSourceFile } from '../../base/program/createProgramFromSourceFile'
 
 export class VisitBuilder {
-  private currentNode = new VisitBuilderNodeMatch(this, "0")
+  private currentNode = new VisitBuilderNodeMatch(this, '0')
   private nodeMatchList: VisitBuilderNodeMatch[] = [this.currentNode]
   private tsProgram?: ts.Program
   constructor(key?: string) {
@@ -17,7 +17,7 @@ export class VisitBuilder {
     return this
   }
   filePath(filePath: string) {
-    const code = fs.readFileSync(filePath, "utf8")
+    const code = fs.readFileSync(filePath, 'utf8')
     return this.code(code)
   }
   code(code: string) {
@@ -45,8 +45,8 @@ export class VisitBuilder {
     return this
   }
   kind(...kind: (ts.SyntaxKind | keyof typeof ts.SyntaxKind)[]) {
-    kind.forEach(x => {
-      if (typeof x === "string") {
+    kind.forEach((x) => {
+      if (typeof x === 'string') {
         this.currentNode.kind.push(ts.SyntaxKind[x])
         return
       }
@@ -54,9 +54,14 @@ export class VisitBuilder {
     })
     return this
   }
-  type(type: (VisitBuilderNodeMatchType | keyof typeof VisitBuilderNodeMatchType)[]) {
-    type.forEach(x => {
-      if (typeof x === "string") {
+  type(
+    type: (
+      | VisitBuilderNodeMatchType
+      | keyof typeof VisitBuilderNodeMatchType
+    )[],
+  ) {
+    type.forEach((x) => {
+      if (typeof x === 'string') {
         this.currentNode.type.push(VisitBuilderNodeMatchType[x])
         return
       }
@@ -73,7 +78,7 @@ export class VisitBuilder {
     return this
   }
   contectMatch(...matcher: (string | RegExp)[]) {
-    matcher.forEach(m => {
+    matcher.forEach((m) => {
       this.currentNode.matchNodeContect.push(m)
     })
     return this
@@ -97,14 +102,16 @@ export class VisitBuilder {
 
   runVisit() {
     if (!this.tsProgram) {
-      throw new Error("A program is not defined. Use one of methods: 'code', 'program', 'sourceFile' or 'filePath'")
+      throw new Error(
+        "A program is not defined. Use one of methods: 'code', 'program', 'sourceFile' or 'filePath'",
+      )
     }
   }
 }
 
 export const node = (key: string) => new VisitBuilder(key)
 
-node("")
+node('')
 
 export class VisitBuilderNodeMatch {
   key: string
@@ -124,10 +131,10 @@ export class VisitBuilderNodeMatch {
 }
 
 export enum VisitBuilderNodeMatchType {
-  functionLike = "functionLike",
-  function = "function",
-  arrowFunction = "arrowFunction",
-  variable = "variable",
+  functionLike = 'functionLike',
+  function = 'function',
+  arrowFunction = 'arrowFunction',
+  variable = 'variable',
 }
 
 export type NodeMatchMethod = (opt?: NodeMatchMethodArguments) => boolean

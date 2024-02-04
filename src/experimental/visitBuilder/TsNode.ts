@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
-import { nodeMatchContent } from '../base/nodeMatch/nodeMatchContent'
-import { nodeTextMatch } from '../base/nodeMatch/nodeTextMatch'
+import { nodeMatchContent } from '../../base/nodeMatch/nodeMatchContent'
+import { nodeTextMatch } from '../../base/nodeMatch/nodeTextMatch'
 
 export class TsNode {
   matchedAllConditions = true
