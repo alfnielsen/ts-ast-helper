@@ -5,8 +5,8 @@
   "types": "types/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run build-index-files && bun run build-base && bun run build-experimental && bun run build-util && bun run build-type",
-    "clean-builds": "rm types && rm dist",
+    "build": "bun run clean-builds && bun run build-index-files && bun run build-base && bun run build-experimental && bun run build-util && bun run build-type",
+    "clean-builds": "rm -R -f types && rm -R -f dist",
     "build-base": "bun build ./src/index.ts --outdir ./dist  --declaration",
     "build-experimental": "bun build ./src/experimental.ts --outdir ./dist",
     "build-util": "bun build ./src/util.ts --outdir ./dist",
