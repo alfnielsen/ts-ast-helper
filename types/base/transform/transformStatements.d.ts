@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-export declare type StatementIterateFunctionOptions = {
+export type StatementIterateFunctionOptions = {
     remove: () => void;
     addBefore: (...statement: ts.Statement[]) => void;
     add: (...statement: ts.Statement[]) => void;
@@ -8,7 +8,7 @@ export declare type StatementIterateFunctionOptions = {
     insertAt: (index: number, ...statement: ts.Statement[]) => void;
     newStatementList: ReadonlyArray<ts.Statement>;
 };
-export declare type StatementIterateFunction = (statement: ts.Statement, options: StatementIterateFunctionOptions) => void;
+export type StatementIterateFunction = (statement: ts.Statement, options: StatementIterateFunctionOptions) => void;
 /**
  * Re-create/Replace a list of statements (Return a new list)
  *

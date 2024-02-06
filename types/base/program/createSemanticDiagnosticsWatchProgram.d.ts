@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-export declare type WatchProgramOptions = {
+export type WatchProgramOptions = {
     configPath?: string;
     options?: ts.CompilerOptions;
     formatHost?: ts.FormatDiagnosticsHost;

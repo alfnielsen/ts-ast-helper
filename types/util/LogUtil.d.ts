@@ -1,4 +1,4 @@
-export declare type LogColor = `\x1b[${number}m` | 'green' | 'red' | 'blue' | 'yellow' | 'cyan' | 'magenta' | 'white' | 'black' | 'gray' | 'grey';
+export type LogColor = `\x1b[${number}m` | 'green' | 'red' | 'blue' | 'yellow' | 'cyan' | 'magenta' | 'white' | 'black' | 'gray' | 'grey';
 export declare const lineChar = "\u23AF";
 export declare const errorChar = "\u2718";
 export declare const successChar = "\u2714";

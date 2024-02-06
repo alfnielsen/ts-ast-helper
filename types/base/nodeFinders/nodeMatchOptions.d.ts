@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
-import { type NodeTypeMap } from 'src/base/nodeMatch/nodeMatchType';
-export declare type NodeMatchOptions = {
+import { type NodeTypeMap } from './../nodeMatch/nodeMatchType';
+export type NodeMatchOptions = {
     kind?: ts.SyntaxKind | keyof typeof ts.SyntaxKind;
     oneOfKinds?: (ts.SyntaxKind | keyof typeof ts.SyntaxKind)[];
     nameContains?: string | RegExp;
@@ -18,5 +18,5 @@ export declare type NodeMatchOptions = {
     oneOfModifiers?: ts.ModifierSyntaxKind[];
     match?: (node: ts.Node) => boolean;
 };
-export declare type FindNodeOptionsFunction = (node: ts.Node, options: NodeMatchOptions) => boolean;
+export type FindNodeOptionsFunction = (node: ts.Node, options: NodeMatchOptions) => boolean;
 export declare function nodeMatchOptions(node: ts.Node, opt: NodeMatchOptions): boolean;

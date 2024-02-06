@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-export declare type CreateProgramFromStringOptions = {
+export type CreateProgramFromStringOptions = {
     fileName?: string;
     sourceFile?: ts.SourceFile;
     writeFile?: (filename: string, data: string) => void;

@@ -4,11 +4,9 @@ import fs from 'fs'
 import paths from 'src/staticPaths'
 import { Glob } from 'bun'
 import { getName } from 'src/base/getters/getName'
-import { findNodesInStringVisitor } from 'src/base/visitors/findNodesInStringVisitor'
 import { findFunctions } from 'src/base/nodeFinders/specifiedTypes/findMany/findFunctions'
 import { createSourceFileFromCode } from 'src/base/sourceFile/createSourceFileFromCode'
 import { getParameters } from 'src/base/getters/getParameters'
-import { getIdentifier } from 'src/base/getters/getIdentifier'
 import { getIdentifiers } from 'src/base/getters/getIdentifiers'
 
 const glob = new Glob('**/*.ts')

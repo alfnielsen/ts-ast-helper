@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-export declare type VisitorState<TState extends object, TGlobalState extends object> = {
+export type VisitorState<TState extends object, TGlobalState extends object> = {
     isRoot: boolean;
     parent: ts.Node;
     ancestors: ts.Node[];
@@ -8,9 +8,9 @@ export declare type VisitorState<TState extends object, TGlobalState extends obj
     context: ts.TransformationContext;
     visitChildern: ChildrenVisitor<TState, TGlobalState>;
 };
-export declare type ChildrenVisitor<TState extends object = {}, TGlobalState extends object = {}> = () => ts.Node | undefined;
-export declare type TranformVisitorWithStatePredicate<TIn extends ts.Node = ts.Node, TOut extends ts.Node = ts.Node, TState extends object = {}, TGlobalState extends object = {}> = (node: TIn, state: VisitorState<TState, TGlobalState>) => TOut | undefined | void;
-export declare type TranformVisitorWithStateOptions<TNode extends ts.Node = ts.Node, TState extends object = {}, TGlobalState extends object = {}> = {
+export type ChildrenVisitor<TState extends object = {}, TGlobalState extends object = {}> = () => ts.Node | undefined;
+export type TranformVisitorWithStatePredicate<TIn extends ts.Node = ts.Node, TOut extends ts.Node = ts.Node, TState extends object = {}, TGlobalState extends object = {}> = (node: TIn, state: VisitorState<TState, TGlobalState>) => TOut | undefined | void;
+export type TranformVisitorWithStateOptions<TNode extends ts.Node = ts.Node, TState extends object = {}, TGlobalState extends object = {}> = {
     node: TNode;
     sourceVisitor?: TranformVisitorWithStatePredicate<TNode, TNode, TState, TGlobalState>;
     visitor: TranformVisitorWithStatePredicate<ts.Node, ts.Node, TState, TGlobalState>;

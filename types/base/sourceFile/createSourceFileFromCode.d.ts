@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-export declare type CreateSourceFileFromCodeOptions = {
+export type CreateSourceFileFromCodeOptions = {
     fileName?: string;
     languageVersionOrOptions?: ts.ScriptTarget | ts.CreateSourceFileOptions;
     setParentNodes?: boolean | undefined;

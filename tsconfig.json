@@ -32,6 +32,6 @@
       "src/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*", "tests/**/*", "tf-tests/**/*"],
+  "include": ["src/**/*", "tests/**/*", "actions/**/*", "tf-tests/**/*"],
   "exclude": ["node_modules", "dist"]
 }

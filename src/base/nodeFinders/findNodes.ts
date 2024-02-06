@@ -9,7 +9,7 @@ export type FindNodeOptions = NodeMatchOptions
 
 export function findNodes<TType extends ts.Node = ts.Node>(
   rootNode: ts.Node,
-  opt: NodeMatchOptions = {},
+  opt: FindNodeOptions = {},
 ) {
   return findNodesVisitor<TType>(rootNode, (node) =>
     nodeMatchOptions(node, opt),

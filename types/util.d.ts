@@ -1,2 +1,2 @@
-export * from "src/util/Checks";
-export * from "src/util/LogUtil";
+export * from "./util/Checks";
+export * from "./util/LogUtil";

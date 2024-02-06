@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
-import { type FindNodeOptions } from 'src/base/nodeFinders/findNode';
-export declare type FindNodeKindOptions = Omit<FindNodeOptions, 'kind' | 'oneOfKinds' | 'type' | 'oneOfTypes'> & {
+import type { FindNodeOptions } from './../../findNodes';
+export type FindNodeKindOptions = Omit<FindNodeOptions, 'kind' | 'oneOfKinds' | 'type' | 'oneOfTypes'> & {
     isVariableDeclaration?: true;
 };
-export declare function findNodeKind<TType extends ts.Node = ts.Node>(node: ts.Node, kind: ts.SyntaxKind | keyof typeof ts.SyntaxKind, opt?: FindNodeKindOptions): any;
+export declare function findNodeKind<TType extends ts.Node = ts.Node>(node: ts.Node, kind: ts.SyntaxKind | keyof typeof ts.SyntaxKind, opt?: FindNodeKindOptions): TType;

@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
-import { type FindNodeTypeOptions } from 'src/base/nodeFinders/specifiedTypes/findOne/findNodeType';
-export declare type FindFunctionOptions = FindNodeTypeOptions & {
+import { type FindNodeTypeOptions } from './../findOne/findNodeType';
+export type FindFunctionOptions = FindNodeTypeOptions & {
     includeVariableFunction?: boolean; /** defatult: true */
 };
 /**
@@ -16,4 +16,4 @@ export declare type FindFunctionOptions = FindNodeTypeOptions & {
  * @param rootNode
  * @param opt
  */
-export declare function findFunctions(rootNode: ts.Node, opt?: FindFunctionOptions): any;
+export declare function findFunctions(rootNode: ts.Node, opt?: FindFunctionOptions): ts.FunctionDeclaration[];

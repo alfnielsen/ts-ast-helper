@@ -7,8 +7,8 @@ export declare const getBaseNodeInfo: (node: ts.Node) => {
     fullStart: number;
     end: number;
     kind: string;
-    modifier: any;
-    parameters: any;
+    modifier: string;
+    parameters: string;
     sourceFileName: string;
     sourceFileText: string;
 };

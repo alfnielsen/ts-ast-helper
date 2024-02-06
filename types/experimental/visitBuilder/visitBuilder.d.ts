@@ -44,8 +44,8 @@ export declare enum VisitBuilderNodeMatchType {
     arrowFunction = "arrowFunction",
     variable = "variable"
 }
-export declare type NodeMatchMethod = (opt?: NodeMatchMethodArguments) => boolean;
-export declare type NodeMatchMethodArguments = {
+export type NodeMatchMethod = (opt?: NodeMatchMethodArguments) => boolean;
+export type NodeMatchMethodArguments = {
     node: ts.Node;
     sourceFile: ts.SourceFile;
     program: ts.Program;

@@ -1,4 +1,4 @@
-import type { TranformVisitorWithStateOptions } from 'src/base/transformers/tranformWithState';
+import type { TranformVisitorWithStateOptions } from './tranformWithState';
 import * as ts from 'typescript';
 /**
  *  UNDER DEVELOPMENT

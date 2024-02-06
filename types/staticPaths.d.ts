@@ -2,6 +2,7 @@ export declare const srcPath: string;
 export declare const rootPath: string;
 export declare const templatesPath: string;
 export declare const testsPath: string;
+export declare const typesPath: string;
 export declare const tfTestsPath: string;
 export declare const basePath: string;
 export declare const baseNodeMatchPath: string;
@@ -17,5 +18,6 @@ export declare const paths: {
     baseNodeMatchPath: string;
     experimentalPath: string;
     utilPath: string;
+    typesPath: string;
 };
 export default paths;

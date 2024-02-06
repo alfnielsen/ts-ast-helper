@@ -1,2 +1,2 @@
 import * as ts from 'typescript';
-export declare const hasModifier: (node: ts.Node, modifier: ts.ModifierSyntaxKind) => any;
+export declare const hasModifier: (node: ts.Node, modifier: ts.ModifierSyntaxKind) => boolean;

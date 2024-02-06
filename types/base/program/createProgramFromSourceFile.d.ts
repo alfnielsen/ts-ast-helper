@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-export declare type CreateProgramFromSourceFileOptions = {
+export type CreateProgramFromSourceFileOptions = {
     fileName?: string;
     writeFile?: (filename: string, data: string) => void;
     getSourceFile?: (name: string, languageVersion: ts.ScriptTarget) => ts.SourceFile;

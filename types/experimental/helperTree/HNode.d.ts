@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import { HParameter } from 'src/experimental/helperTree/HParameter';
+import { HParameter } from './HParameter';
 export declare class HNode {
     comments: string;
     text: string;
@@ -33,7 +33,15 @@ export declare class HNode {
         end: number;
         kind: string;
         modifier: string[];
-        parameters: any[];
+        parameters: {
+            dotDotDotToken: boolean;
+            name: string;
+            questionToken: boolean;
+            start: number;
+            end: number;
+            tsKind: string;
+            modifiers: any[];
+        }[];
         returnType: string;
         isExported: boolean;
     };

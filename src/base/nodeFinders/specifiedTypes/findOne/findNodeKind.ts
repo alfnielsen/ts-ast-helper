@@ -1,5 +1,6 @@
 import * as ts from 'typescript'
-import { findNode, type FindNodeOptions } from 'src/base/nodeFinders/findNode'
+import { findNode } from 'src/base/nodeFinders/findNode'
+import type { FindNodeOptions } from 'src/base/nodeFinders/findNodes'
 
 export type FindNodeKindOptions = Omit<
   FindNodeOptions,

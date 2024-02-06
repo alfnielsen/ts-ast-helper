@@ -77,9 +77,10 @@ export function transformVariableFunctionToFunction(
           func.type,
           func.body && ts.isBlock(func.body)
             ? func.body
-            : ts.factory.createBlock([
-                ts.factory.createReturnStatement(func.body),
-              ]),
+            : ts.factory.createBlock(
+                (func.body as unknown as ts.FunctionBody).statements,
+                // ts.factory.createReturnStatement(func.body),
+              ),
         )
 
         return funcRef

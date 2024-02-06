@@ -1,23 +1,23 @@
 import * as ts from 'typescript';
-import { type LogColor } from 'src/util/LogUtil';
-import { HNode } from 'src/experimental/helperTree/HNode';
-export declare type HTreeVisitOptions = {
+import { type LogColor } from './../../util/LogUtil';
+import { HNode } from './HNode';
+export type HTreeVisitOptions = {
     node?: HNode;
     depth?: number | 'all';
     visitor: (node: HNode, opt: HTreeVisitVisitorRunOptions) => undefined | void | true;
 };
-export declare type HTreeVisitVisitorOptions = {
+export type HTreeVisitVisitorOptions = {
     depth?: number | 'all';
 };
-export declare type HTreeVisitVisitorRunOptions = {
+export type HTreeVisitVisitorRunOptions = {
     siblingIndex: number;
     siblingCount: number;
     depth: number;
     maxDepth: number;
     stopped: boolean;
 };
-export declare type HTreePrintTreeLogger = (content: string, node?: HNode) => void;
-export declare type HTreePrintTreeOptions = {
+export type HTreePrintTreeLogger = (content: string, node?: HNode) => void;
+export type HTreePrintTreeOptions = {
     logger?: HTreePrintTreeLogger;
     indent?: number | string;
     indentionPostfix?: string;
@@ -43,7 +43,7 @@ export declare class HTree {
     code: string;
     errorMessage?: string;
     error?: any;
-    rootNode: any;
+    rootNode: HNode;
     allNode: HNode[];
     namedNodeMap: Record<string, HNode>;
     setCode(code: string | ts.Node, compile?: boolean): this;
@@ -54,7 +54,27 @@ export declare class HTree {
         code: string;
         errorMessage: string;
         error: any;
-        node: any;
+        node: {
+            text: string;
+            comments: string;
+            commentsStart: number;
+            name: string;
+            start: number;
+            end: number;
+            kind: string;
+            modifier: string[];
+            parameters: {
+                dotDotDotToken: boolean;
+                name: string;
+                questionToken: boolean;
+                start: number;
+                end: number;
+                tsKind: string;
+                modifiers: any[];
+            }[];
+            returnType: string;
+            isExported: boolean;
+        };
     };
     getJsonString(excludeNodes?: boolean): string;
 }

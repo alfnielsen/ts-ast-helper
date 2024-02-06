@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-export declare type VisitorPredicateParamters = {
+export type VisitorPredicateParamters = {
     parent: ts.Node;
     ancestors: ts.Node[];
     depth: number;

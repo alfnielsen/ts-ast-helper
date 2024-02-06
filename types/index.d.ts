@@ -1,4 +1,4 @@
-export * as experimental from 'src/experimental'
-export * as util from 'src/util'
-import * as base from 'src/base'
-export default base
+export * as experimental from './experimental';
+export * as util from './util';
+import * as base from './base';
+export default base;
