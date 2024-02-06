@@ -3,29 +3,17 @@
   "module": "src/index.ts",
   "version": "0.0.7",
   "types": "types/index.d.ts",
-  "exports": {
-    "default": {
-      ".": "./src/index.ts",
-      "util": "./src/util.ts",
-      "experimental": "./src/experimental.ts",
-      "types": "./types/index.d.ts"
-    },
-    "require": {
-      ".": "./dist/index.ts",
-      "util": "./dist/util.ts",
-      "experimental": "./dist/experimental.ts",
-      "types": "./types/index.d.ts"
-    }
-  },
   "type": "module",
   "scripts": {
-    "build": "bun run build-base && bun run build-experimental && bun run build-util && bun run build-type",
+    "build": "bun run build-index-files && bun run build-base && bun run build-experimental && bun run build-util && bun run build-type",
+    "clean-builds": "rm types && rm dist",
     "build-base": "bun build ./src/index.ts --outdir ./dist  --declaration",
     "build-experimental": "bun build ./src/experimental.ts --outdir ./dist",
     "build-util": "bun build ./src/util.ts --outdir ./dist",
     "build-type": "bun run build-tsc-types && bun run change-types-to-rel",
     "build-tsc-types": "tsc -p tsconfig.definitions.json",
-    "change-types-to-rel": "bun run ./actions/Replace-definitions-to-relative.action.ts",
+    "build-index-files": "bun run ./actions/build-steps/Create-all-file-export-files.action.ts",
+    "change-types-to-rel": "bun run ./actions/build-steps/Replace-types-files-to-relative.action.ts",
     "tf": "runtf -s -sn 3 --bun -np",
     "tfa": "cross-env  runtf -s -sn 3 --bun -np -p action",
     "tfad": "cross-env NODE_ENV=development runtf -s -sn 3 --bun -np -p action",
