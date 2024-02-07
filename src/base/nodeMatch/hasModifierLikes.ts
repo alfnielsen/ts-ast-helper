@@ -1,12 +1,12 @@
 import * as ts from 'typescript'
-import { getModifiers } from 'src/base/getters/getModifiers'
+import { getModifierLikes } from 'src/base/getters/getModifierLikes'
 import { ModifierLikeMap } from 'src/base/getters/ModifierLikeMap'
 
-export const hasModifiers = (
+export const hasModifierLikes = (
   node: ts.Node,
   ...modifiers: (ts.ModifierSyntaxKind | keyof typeof ModifierLikeMap)[]
 ) => {
-  const nodeModifiers = getModifiers(node)
+  const nodeModifiers = getModifierLikes(node)
   modifiers = modifiers.map((m) =>
     typeof m === 'string' ? ModifierLikeMap[m] : m,
   )

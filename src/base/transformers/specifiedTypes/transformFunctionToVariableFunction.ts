@@ -6,6 +6,7 @@ import { nodeKind } from 'src/base/printer/nodeKind'
 import { getAstChildren } from 'src/base/getters/getAstChildren'
 import { printSimpleAst } from 'src/base/printer/printSimpleAst'
 import { getGrandChildren } from 'src/base/getters/getGrandChildren'
+import { getModifierLikes, hasModifierLike } from 'src/base'
 
 /**
  * NOTE: In Development \
@@ -56,51 +57,51 @@ export function transformFunctionToVariableFunction(
       }
       // create variable statment with one declarations that hold an arrow function
       const varModifiers: ts.Modifier[] = []
-      const funcModifiers = getModifiers(functionDeclaration)
+      const funcModifierLikes = getModifierLikes(functionDeclaration)
       const astChildren = getAstChildren(functionDeclaration)
       const grandChildren = getGrandChildren(functionDeclaration)
 
-      console.log(`
-      --------------------------------------------      
-        Name: ${functionDeclaration.name?.text},
-        Context:
-        ${functionDeclaration.getText()}
+      // console.log(`
+      // --------------------------------------------
+      //   Name: ${functionDeclaration.name?.text},
+      //   Context:
+      //   ${functionDeclaration.getText()}
 
-        Ast:
-        ${!!functionDeclaration}
-        ${functionDeclaration.kind}
-        ${nodeKind(functionDeclaration)}
-        ${printSimpleAst(functionDeclaration)}
+      //   Ast:
+      //   ${!!functionDeclaration}
+      //   ${functionDeclaration.kind}
+      //   ${nodeKind(functionDeclaration)}
+      //   ${printSimpleAst(functionDeclaration)}
 
-        astChildren:
-        ${astChildren.map((c) => nodeKind(c))}
+      //   astChildren:
+      //   ${astChildren.map((c) => nodeKind(c))}
 
-        grandChildren:
-        ${grandChildren.map((c) => nodeKind(c))}
+      //   grandChildren:
+      //   ${grandChildren.map((c) => nodeKind(c))}
 
-        getChildren:
-        ${functionDeclaration.getChildren().map((c) => nodeKind(c))}
-      --------------------------------------------
-      `)
-
-      const isExportedIndex = funcModifiers.findIndex(
+      //   getChildren:
+      //   ${functionDeclaration.getChildren().map((c) => nodeKind(c))}
+      // --------------------------------------------
+      // `)
+      const isExportedIndex = funcModifierLikes.findIndex(
         (m) => m.kind === ts.SyntaxKind.ExportKeyword,
       )
-      if (isExportedIndex >= 0) {
-        funcModifiers.splice(isExportedIndex, 1)
+
+      if (isExportedIndex > -1) {
+        funcModifierLikes.splice(isExportedIndex, 1)
         varModifiers.push(
           ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
         )
       }
-      console.log(
-        functionDeclaration.name?.text,
-        '\n',
-        functionDeclaration.getText(),
-        '\nfuncModifiers',
-        funcModifiers.map((m) => nodeKind(m)),
-        '\nvarModifiers',
-        varModifiers.map((m) => nodeKind(m)),
-      )
+      // console.log(
+      //   functionDeclaration.name?.text,
+      //   '\n',
+      //   functionDeclaration.getText(),
+      //   '\nfuncModifiers',
+      //   funcModifiers.map((m) => nodeKind(m)),
+      //   '\nvarModifiers',
+      //   varModifiers.map((m) => nodeKind(m)),
+      // )
       varRef = ts.factory.createVariableStatement(
         varModifiers,
         ts.factory.createVariableDeclarationList(
@@ -110,7 +111,9 @@ export function transformFunctionToVariableFunction(
               undefined,
               undefined,
               ts.factory.createArrowFunction(
-                funcModifiers,
+                funcModifierLikes.filter((m) =>
+                  ts.isModifier(m),
+                ) as ts.Modifier[],
                 functionDeclaration.typeParameters,
                 functionDeclaration.parameters,
                 undefined,
