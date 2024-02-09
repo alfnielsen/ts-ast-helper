@@ -1,9 +1,9 @@
 import { test, expect } from 'bun:test'
-import { createProgramFromString } from '../../../src/base/program/createProgramFromString'
+import { createProgramFromCode } from '../../../src/base/program/createProgramFromCode'
 
 test('createProgramFromString', async () => {
   const code = `console.log("hello world")`
-  const program = await createProgramFromString(code)
+  const program = await createProgramFromCode(code)
 
   expect(program).toBeDefined()
   expect(program.getCurrentDirectory).toBeFunction()

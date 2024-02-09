@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import {
   nodeMatchOptions,
   type NodeMatchOptions,
-} from 'src/base/nodeFinders/nodeMatchOptions'
+} from 'src/base/nodeMatch/match/nodeMatchOptions'
 import { findNodesVisitor } from 'src/base/visitors/findNodesVisitor'
 
 export type FindNodeOptions = NodeMatchOptions

@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import fs from 'fs'
-import { createProgramFromString } from '../../base/program/createProgramFromString'
+import { createProgramFromCode } from '../../base/program/createProgramFromCode'
 import { createProgramFromSourceFile } from '../../base/program/createProgramFromSourceFile'
 
 export class VisitBuilder {
@@ -21,7 +21,7 @@ export class VisitBuilder {
     return this.code(code)
   }
   code(code: string) {
-    this.tsProgram = createProgramFromString(code)
+    this.tsProgram = createProgramFromCode(code)
     return this
   }
   sourceFile(sourcFile: ts.SourceFile) {

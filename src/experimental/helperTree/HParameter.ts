@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { getModifiers } from 'src/base/getters/getModifiers'
+import { getModifiers } from 'src/base/getters/nodePropertyGetters/getModifiers'
 
 export class HParameter {
   dotDotDotToken = false

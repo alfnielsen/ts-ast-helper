@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
 import { printNode } from 'src/base/printer/printNode'
-import { hasModifier } from 'src/base/nodeMatch/hasModifier'
-import { getModifiers } from 'src/base/getters/getModifiers'
+import { hasModifier } from 'src/base/nodeMatch/has/hasModifier'
+import { getModifiers } from 'src/base/getters/nodePropertyGetters/getModifiers'
 import { tranformBlockOrSourceFileWithState } from 'src/base/transformers/tranformBlockOrSourceFileWithState'
 
 /**

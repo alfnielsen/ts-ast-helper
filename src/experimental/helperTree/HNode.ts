@@ -1,11 +1,11 @@
 import * as ts from 'typescript'
-import { getModifiers } from 'src/base/getters/getModifiers'
-import { getName } from 'src/base/getters/getName'
-import { getParameters } from 'src/base/getters/getParameters'
+import { getModifiers } from 'src/base/getters/nodePropertyGetters/getModifiers'
+import { getName } from 'src/base/getters/nodePropertyGetters/getName'
+import { getParameters } from 'src/base/getters/nodePropertyGetters/getParameters'
 import { HParameter } from 'src/experimental/helperTree/HParameter'
 import { nodeKind } from 'src/base/printer/nodeKind'
-import { createProgramFromString } from 'src/base/program/createProgramFromString'
-import isExported from 'src/base/nodeMatch/isExported'
+import { createProgramFromCode } from 'src/base/program/createProgramFromCode'
+import isExported from 'src/base/nodeMatch/is/isExported'
 
 export class HNode {
   public comments: string = ''
@@ -49,7 +49,7 @@ export class HNode {
     ) {
       //const program = createProgramFromNodeWithSourceFile(node)
       const sourceFile = node.getSourceFile()
-      const program = createProgramFromString(node.getText(), {
+      const program = createProgramFromCode(node.getText(), {
         fileName: 'file.ts',
         sourceFile,
       })

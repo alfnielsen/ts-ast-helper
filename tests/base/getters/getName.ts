@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import * as ts from 'typescript'
-import { getName } from 'src/base/getters/getName.ts'
+import { getName } from 'src/base/getters/nodePropertyGetters/getName'
 
 test('test getName', async () => {
   const code = `

@@ -1,12 +1,9 @@
 import * as ts from 'typescript'
 import { printNode } from 'src/base/printer/printNode'
-import { getModifiers } from 'src/base/getters/getModifiers'
 import { tranformBlockOrSourceFileWithState } from 'src/base/transformers/tranformBlockOrSourceFileWithState'
-import { nodeKind } from 'src/base/printer/nodeKind'
-import { getAstChildren } from 'src/base/getters/getAstChildren'
-import { printSimpleAst } from 'src/base/printer/printSimpleAst'
-import { getGrandChildren } from 'src/base/getters/getGrandChildren'
-import { getModifierLikes, hasModifierLike } from 'src/base'
+import { getAstChildren } from 'src/base/getters/nodePropertyGetters/getAstChildren'
+import { getGrandChildren } from 'src/base/getters/nodePropertyGetters/getGrandChildren'
+import { getModifierLikes } from 'src/base/getters/nodePropertyGetters/getModifierLikes'
 
 /**
  * NOTE: In Development \

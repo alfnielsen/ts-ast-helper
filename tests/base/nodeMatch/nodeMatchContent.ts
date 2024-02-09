@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import * as ts from 'typescript'
-import { nodeMatchContent } from 'src/base/nodeMatch/nodeMatchContent.ts'
+import { nodeMatchContent } from 'src/base/nodeMatch/match/nodeMatchContent'
 
 test('test nodeMatchContent', async () => {
   const code = `

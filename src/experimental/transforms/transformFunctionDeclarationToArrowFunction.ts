@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { getName } from '../../base/getters/getName'
+import { getName } from '../../base/getters/nodePropertyGetters/getName'
 import { printNode } from '../../base/printer/printNode'
 import { tranformWithState } from '../../base/transformers/tranformWithState'
 

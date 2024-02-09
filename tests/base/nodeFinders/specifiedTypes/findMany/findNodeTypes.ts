@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import * as ts from 'typescript'
-import { findNodeTypes } from 'src/base/nodeFinders/specifiedTypes/findMany/findNodeTypes.ts'
+import { findNodeTypes } from 'src/base/nodeFinders/findMany/findNodeTypes'
 
 test('test findNodeTypes', async () => {
   const code = `

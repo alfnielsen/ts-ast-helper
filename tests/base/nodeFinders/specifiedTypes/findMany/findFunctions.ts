@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import * as ts from 'typescript'
-import { findFunctions } from 'src/base/nodeFinders/specifiedTypes/findMany/findFunctions.ts'
+import { findFunctions } from 'src/base/nodeFinders/findMany/findFunctions'
 import { createSourceFileFromCode } from 'src/base/sourceFile/createSourceFileFromCode'
 
 test('test findFunctions', async () => {

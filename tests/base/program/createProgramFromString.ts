@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import * as ts from 'typescript'
-import { createProgramFromString } from 'src/base/program/createProgramFromString.ts'
+import { createProgramFromCode } from 'src/base/program/createProgramFromCode'
 
 test('test createProgramFromString', async () => {
   const code = `
@@ -10,5 +10,5 @@ export const foo = () => {
 }
 
 `
-  const res = createProgramFromString
+  const res = createProgramFromCode
 })

@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test'
 import * as ts from 'typescript'
-import { hasModifier } from 'src/base/nodeMatch/hasModifier.ts'
+import { hasModifier } from 'src/base/nodeMatch/has/hasModifier'
 
 test('test hasModifier', async () => {
   const code = `

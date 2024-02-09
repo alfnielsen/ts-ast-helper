@@ -2,8 +2,8 @@ import * as ts from 'typescript'
 import {
   nodeMatchOptions,
   type NodeMatchOptions,
-} from 'src/base/nodeFinders/nodeMatchOptions'
-import { getAstChildren } from 'src/base/getters/getAstChildren'
+} from 'src/base/nodeMatch/match/nodeMatchOptions'
+import { getAstChildren } from 'src/base/getters/nodePropertyGetters/getAstChildren'
 
 /**
  * Find first of node's Ast child matching the match options. \

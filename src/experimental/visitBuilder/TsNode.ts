@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { nodeMatchContent } from '../../base/nodeMatch/nodeMatchContent'
+import { nodeMatchContent } from '../../base/nodeMatch/match/nodeMatchContent'
 import { nodeTextMatch } from '../../base/nodeMatch/nodeTextMatch'
 
 export class TsNode {
