@@ -2,22 +2,12 @@ import * as ts from 'typescript'
 import { getName } from '../../base/getters/nodePropertyGetters/getName'
 import { printNode } from '../../base/printer/printNode'
 import { tranformWithState } from '../../base/transformers/tranformWithState'
-import { findImports } from 'src/base/nodeFinders/findMany/findImports'
-import { findImportsInCode } from 'src/base/nodeFinders/inCode/findManyInCode/findImportsInCode'
 
-/**
- * Change the import path of the import declaration,
- * in a code string.
- * @param code
- * @param predicate
- * @returns
- */
-export function importPathTransformer(
-  code: string,
-  predicate: (importPath: string, importMode: ts.ImportDeclaration) => string,
-) {
-  const imports = findImportsInCode(code)
-
+// Replace functionDeclaration with a arrow functon assigned to a variableDeclaration (with the same name)
+export const replaceFunctionDeclarationWithArrowFunction = (
+  funcNode: ts.FunctionDeclaration,
+) => {
+  // extract
   const name = getName(funcNode)
   if (!name) {
     throw new Error('Could not get name of function declaration!')

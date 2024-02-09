@@ -6,6 +6,7 @@ import {
   type TypeInfo,
 } from 'src/base/getters/infoMaps/getTypeInfo'
 import { hasNodeFlagType } from 'src/base/nodeMatch/has/hasNodeFlagType'
+import { getNodeFlagNames } from 'src/base/getters/typeDefinitionGetters/getNodeFlagNames'
 
 export type VariableDeclarationInfo = {
   text: string
@@ -32,7 +33,7 @@ export function getVariableDeclarationInfo(node: ts.VariableDeclaration) {
     type: node.type ? getTypeInfo(node.type) : undefined,
     async: hasNodeFlagType(node, ts.NodeFlags.HasAsyncFunctions),
     await: hasNodeFlagType(node, ts.NodeFlags.AwaitUsing),
-    flags: node.flags.toString().split(' '),
+    flags: getNodeFlagNames(node.flags),
     value: node.initializer ? getExpressionInfo(node.initializer) : undefined,
   } satisfies VariableDeclarationInfo
 }

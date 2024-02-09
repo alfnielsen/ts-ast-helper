@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import findNodeInString from '../../../src/findNodeInString'
-import { replaceFunctionDeclarationWithArrowFunction } from '../../../src/experimental/transforms/transformFunctionDeclarationToArrowFunction'
+import { replaceFunctionDeclarationWithArrowFunction } from '../../../src/experimental/codeTransformers/transformFunctionDeclarationToArrowFunction'
 import { printNode } from '../../../src/base/printer/printNode'
 
 const code = `

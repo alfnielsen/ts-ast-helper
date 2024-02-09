@@ -1,6 +1,7 @@
 import type { VariableDeclarationInfo } from 'src/base/getters/infoMaps/getVariableDeclarationInfo'
 import type { VariableDeclarationListInfo } from 'src/base/getters/infoMaps/getVariableDeclarationListInfo'
 import { getVariableStatementInfo } from 'src/base/getters/infoMaps/getVariableStatementInfo'
+import { getNodeFlagNames } from 'src/base/getters/typeDefinitionGetters/getNodeFlagNames'
 import * as ts from 'typescript'
 
 export type VariableInfo = {
@@ -11,7 +12,7 @@ export type VariableInfo = {
   export: boolean
   async: boolean
   await: boolean
-  flags: number
+  flags: string[]
   variableDeclarationListInfo: VariableDeclarationListInfo
   variableDeclarationInfo: VariableDeclarationInfo
 }
@@ -30,9 +31,8 @@ export function getVariableInfo(node: ts.VariableStatement) {
   if (list.length !== 1) {
     throw new Error('Expected a single declaration')
   }
-  const flags = node.flags.toString().split(' ')
+  const flags = getNodeFlagNames(node.flags)
   const declInfo = list[0]
-
   const allFlags = [
     ...new Set([flags, listDeclInfo.flags, declInfo.flags].flat()),
   ]

@@ -1,11 +1,10 @@
 import * as ts from 'typescript'
-import { isExported } from 'src/base/nodeMatch/is/isExported'
 import { hasNodeFlagType } from 'src/base/nodeMatch/has/hasNodeFlagType'
-import { isDefaultExported } from 'src/base/nodeMatch/is/isDefaultExported'
 import {
   getVariableDeclarationInfo,
   type VariableDeclarationInfo,
 } from './getVariableDeclarationInfo'
+import { getNodeFlagNames } from 'src/base/getters/typeDefinitionGetters/getNodeFlagNames'
 
 export type VariableDeclarationListInfo = {
   text: string
@@ -13,9 +12,7 @@ export type VariableDeclarationListInfo = {
   end: number
   kind: string
   declarations: VariableDeclarationInfo[]
-  flags: number
-  export: boolean
-  defaultExport: boolean
+  flags: string[]
   var: boolean
   let: boolean
   const: boolean
@@ -35,9 +32,7 @@ export function getVariableDeclarationListInfo(
     start: node.getStart(),
     end: node.getEnd(),
     kind: ts.SyntaxKind[node.kind],
-    flags: node.flags,
-    export: isExported(node),
-    defaultExport: isDefaultExported(node),
+    flags: getNodeFlagNames(node.flags),
     var: isVar,
     let: isLet,
     const: isConst,
