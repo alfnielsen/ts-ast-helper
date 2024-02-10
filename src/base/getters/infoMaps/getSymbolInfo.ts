@@ -5,6 +5,10 @@ import {
 } from 'src/base/getters/infoMaps/getDeclarationInfo'
 import { getSymbolTableInfo } from 'src/base/getters/infoMaps/getSymbolTableInfo'
 import { getSymbolFlagNames } from 'src/base/getters/typeDefinitionGetters/getSymbolFlagNames'
+import {
+  getNodeInfo,
+  type NodeInfo,
+} from 'src/base/getters/infoMaps/getNodeInfo'
 
 export type SymbolInfo = {
   name: string
@@ -15,9 +19,10 @@ export type SymbolInfo = {
   globalExports?: Record<string, SymbolInfo>
   flagNames?: string[]
   flags?: ts.SymbolFlags
+  node?: NodeInfo
 }
 
-export function getSymbolInfo(symbol: ts.Symbol) {
+export function getSymbolInfo(symbol: ts.Symbol, from?: ts.Node) {
   return {
     name: symbol.name,
     valueDeclaration:
@@ -30,5 +35,6 @@ export function getSymbolInfo(symbol: ts.Symbol) {
       symbol.globalExports && getSymbolTableInfo(symbol.globalExports),
     flags: symbol.flags,
     flagNames: getSymbolFlagNames(symbol.flags),
+    node: from && getNodeInfo(from),
   } satisfies SymbolInfo
 }

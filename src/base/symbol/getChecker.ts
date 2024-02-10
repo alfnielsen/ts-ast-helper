@@ -1,6 +1,5 @@
-import { create } from 'domain'
-import { createProgramFromSourceFile } from 'src/base'
 import * as ts from 'typescript'
+import { createProgramFromSourceFile } from 'src/base/program/createProgramFromSourceFile'
 
 /**
  * This function do NOT return the original program checker., if a program is not provided. \

@@ -6,7 +6,7 @@ import { createProgramFromSourceFile } from 'src/base/program/createProgramFromS
  * @param node
  * @returns
  */
-export function getChecker(
+export function getProgramChecker(
   node: ts.Node | ts.SourceFile,
   sourceFile?: ts.SourceFile,
 ) {
