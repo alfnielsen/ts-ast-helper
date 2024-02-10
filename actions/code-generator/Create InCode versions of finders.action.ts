@@ -41,8 +41,8 @@ for (const filePath of files) {
     `/inCode/$1$2/${funcInfo.name}InCode.ts`,
   )
   const parameterNames = func.parameters.map((p) => p.name.getText())
-  parameterNames.shift() // remove first parameter (node parameter) // this is replaced by 'code: string'
-  parameterNames.unshift('code') // add 'code' as first parameter
+  // replace first parameter (node parameter) with 'code: string'
+  parameterNames[0] = 'code'
   // step Replace from bottom to top (to ensure correct start nad end og nodes from original code)
   // step 1: replace body.
   const newCode = `{\n  const sourceFile = createSourceFileFromCode(code)\n  return ${
@@ -60,14 +60,14 @@ for (const filePath of files) {
   // step 3: changeName (* create nameTransformer)
   code = replaceAt(
     code,
-    `${funcInfo.name}InCode`,
-    nameNode.getStart(),
-    nameNode.getEnd(),
+    `${funcInfo.name.text}InCode`,
+    funcInfo.name.start,
+    funcInfo.name.end,
   )
   // step 4: add import
   code = replaceAt(
     code,
-    `\nimport { ${name} } from '${newImportPath}'`,
+    `\nimport { ${funcInfo.name.text} } from '${newImportPath}'`,
     endOfLastImport,
   )
   console.log('--------------')

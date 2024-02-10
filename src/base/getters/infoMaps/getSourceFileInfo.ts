@@ -15,8 +15,12 @@ import {
   getVariableStatementInfo,
   type VariableStatementInfo,
 } from 'src/base/getters/infoMaps/getVariableStatementInfo'
+import {
+  getNodeInfo,
+  type NodeInfo,
+} from 'src/base/getters/infoMaps/getNodeInfo'
 
-export type SourceFileInfo = {
+export type SourceFileInfo = NodeInfo & {
   text: string
   deps: { name?: string; path: string }[]
   fileName: string
@@ -42,7 +46,7 @@ export type SourceFileInfo = {
 }
 
 export function getSourceFileInfo(node: ts.SourceFile) {
-  const text = node.getText()
+  const nodeInfo = getNodeInfo(node)
   const deps = node.amdDependencies.map((d) => ({ name: d.name, path: d.path }))
   const fileName = node.fileName
   const hasNoDefaultLib = node.hasNoDefaultLib
@@ -75,7 +79,7 @@ export function getSourceFileInfo(node: ts.SourceFile) {
     .map((s) => getVariableStatementInfo(s as ts.VariableStatement))
 
   return {
-    text,
+    ...nodeInfo,
     deps,
     fileName,
     hasNoDefaultLib,

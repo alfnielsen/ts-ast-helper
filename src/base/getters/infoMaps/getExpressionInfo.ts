@@ -1,11 +1,10 @@
+import {
+  getNodeInfo,
+  type NodeInfo,
+} from 'src/base/getters/infoMaps/getNodeInfo'
 import * as ts from 'typescript'
 
-export type ExpressionInfo = {
-  text: string
-  start: number
-  end: number
-  kind: string
-}
+export type ExpressionInfo = NodeInfo & {}
 
 export function getExpressionInfo(
   node: ts.Expression | ts.ExpressionStatement,
@@ -13,10 +12,5 @@ export function getExpressionInfo(
   if (ts.isExpressionStatement(node)) {
     node = node.expression
   }
-  return {
-    text: node.getText() ?? '',
-    start: node.getStart(),
-    end: node.getEnd(),
-    kind: ts.SyntaxKind[node.kind],
-  } satisfies ExpressionInfo
+  return getNodeInfo(node) satisfies ExpressionInfo
 }

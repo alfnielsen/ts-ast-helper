@@ -1,17 +1,13 @@
 import * as ts from 'typescript'
+import {
+  getNodeInfo,
+  type NodeInfo,
+} from 'src/base/getters/infoMaps/getNodeInfo'
 
-export type StatementInfo = {
-  text: string
-  start: number
-  end: number
-  kind: string
-}
+export type StatementInfo = NodeInfo & {}
 
 export function getStatementInfo(node: ts.Statement) {
   return {
-    text: node.getText() ?? '',
-    start: node.getStart(),
-    end: node.getEnd(),
-    kind: ts.SyntaxKind[node.kind],
+    ...getNodeInfo(node),
   } satisfies StatementInfo
 }

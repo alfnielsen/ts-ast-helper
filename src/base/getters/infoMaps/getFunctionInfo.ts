@@ -1,90 +1,61 @@
 import * as ts from 'typescript'
 import { getModifierLikes } from 'src/base/getters/nodePropertyGetters/getModifierLikes'
+import {
+  getNodeInfo,
+  type NodeInfo,
+} from 'src/base/getters/infoMaps/getNodeInfo'
+import { getIdentifierInfo } from 'src/base/getters/infoMaps/getIdentifierInfo'
+import {
+  getBlockInfo,
+  type BlockInfo,
+} from 'src/base/getters/infoMaps/getBlockInfo'
+import {
+  getParameterInfo,
+  type ParameterInfo,
+} from 'src/base/getters/infoMaps/getParameterInfo'
+import type { StatementInfo } from 'src/base/getters/infoMaps/getStatementInfo'
+import type { ModifierInfo } from 'src/base/getters/infoMaps/getModifierInfo'
 
-export type FunctionInfo = {
-  name: {
-    text: string | undefined
-    start: number | undefined
-    end: number | undefined
-  }
-  text: string
-  start: number
-  end: number
-  body: {
-    start: number
-    end: number
-    text: string
-  }
-  statements: {
-    start: number
-    end: number
-    text: string
-  }[]
-  parameters: {
-    name: string
-    type: string | undefined
-    text: string
-    start: number
-    end: number
-  }[]
-  modifiers: {
-    text: string
-    start: number
-    end: number
-  }[]
+export type FunctionInfo = NodeInfo & {
+  name: string
+  body: string
+  modifiers: string[]
+  parameterNames: string[]
+  parameters: string[]
+  // infos:
+  nameInfo?: NodeInfo
+  bodyInfo?: BlockInfo
+  modifierInfos: ModifierInfo[]
+  statementInfos: StatementInfo[]
+  parameterInfos: ParameterInfo[]
 }
 
 export function getFunctionInfo(node: ts.FunctionDeclaration) {
-  const name = {
-    text: node.name?.getText(),
-    start: node.name?.getStart(),
-    end: node.name?.getEnd(),
-  }
-  if (!node.body) {
-    throw new Error(
-      `Function ${name.text} do not have a body. Information can not be extracted.`,
-    )
-  }
-  const text = node.getText()
-  const start = node.getStart()
-  const end = node.getEnd()
-  const body = {
-    start: node.body.getStart(),
-    end: node.body.getEnd(),
-    text: node.body.getText(),
-  }
-  var statements = node.body.statements.map((s) => {
-    return {
-      start: s.getStart(),
-      end: s.getEnd(),
-      text: s.getText(),
-    }
-  })
-  const parameters = node.parameters.map((p) => {
-    return {
-      name: p.name.getText(),
-      type: p.type?.getText(),
-      text: p.getText(),
-      start: p.getStart(),
-      end: p.getEnd(),
-    }
-  })
-  const modifiers = getModifierLikes(node).map((m) => {
-    return {
-      text: m.getText(),
-      start: m.getStart(),
-      end: m.getEnd(),
-    }
-  })
-
+  // infos
+  const nodeInfo = getNodeInfo(node)
+  const nameInfo = node.name ? getIdentifierInfo(node.name) : undefined
+  const bodyInfo = node.body ? getBlockInfo(node.body) : undefined
+  const parameterInfos = node.parameters.map(getParameterInfo)
+  const statementInfos = bodyInfo?.statements ?? []
+  const modifierInfos = node.modifiers?.map(getNodeInfo) ?? []
+  // props
+  const name = node.name?.getText() ?? ''
+  const parameterNames = parameterInfos.map((p) => p.name)
+  const parameters = parameterInfos.map((p) => p.text)
+  const body = bodyInfo?.text ?? ''
+  const modifiers = modifierInfos.map((m) => m.text)
   return {
+    ...nodeInfo,
     name,
-    text,
-    start,
-    end,
     body,
-    statements,
-    parameters,
     modifiers,
+    parameterNames,
+    parameters,
+    // infos
+    nameInfo,
+    bodyInfo,
+    modifierInfos,
+    statementInfos,
+    parameterInfos,
   } satisfies FunctionInfo
 }
