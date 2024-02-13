@@ -1,5 +1,8 @@
-import { nodeMatchOptions, type NodeMatchOptions } from 'src/base'
 import * as ts from 'typescript'
+import {
+  nodeMatchOptions,
+  type NodeMatchOptions,
+} from 'src/base/nodeMatch/match/nodeMatchOptions'
 
 /**
  * Match one of the ancestors of the node (parent, grandparent, etc.)

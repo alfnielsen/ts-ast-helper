@@ -1,0 +1,101 @@
+import * as ts from 'typescript';
+import { type NodeInfo } from './getNodeInfo';
+import { type BlockInfo } from './getBlockInfo';
+import { type ParameterInfo } from './getParameterInfo';
+import type { StatementInfo } from './getStatementInfo';
+import type { ModifierInfo } from './getModifierInfo';
+export type FunctionInfo = NodeInfo & {
+    name: string;
+    body: string;
+    modifiers: string[];
+    parameterNames: string[];
+    parameters: string[];
+    nameInfo?: NodeInfo;
+    bodyInfo?: BlockInfo;
+    modifierInfos: ModifierInfo[];
+    statementInfos: StatementInfo[];
+    parameterInfos: ParameterInfo[];
+};
+export declare function getFunctionInfo(node: ts.FunctionDeclaration): {
+    name: string;
+    body: string;
+    modifiers: string[];
+    parameterNames: string[];
+    parameters: string[];
+    nameInfo: {
+        name: string;
+        text: string;
+        start: number;
+        end: number;
+        kind: string;
+        kindValue: number;
+        flags: string[];
+        flagValue: ts.NodeFlags;
+    };
+    bodyInfo: {
+        statements: {
+            text: string;
+            start: number;
+            end: number;
+            kind: string;
+            kindValue: number;
+            flags: string[];
+            flagValue: ts.NodeFlags;
+        }[];
+        text: string;
+        start: number;
+        end: number;
+        kind: string;
+        kindValue: number;
+        flags: string[];
+        flagValue: ts.NodeFlags;
+    };
+    modifierInfos: {
+        text: string;
+        start: number;
+        end: number;
+        kind: string;
+        kindValue: number;
+        flags: string[];
+        flagValue: ts.NodeFlags;
+    }[];
+    statementInfos: {
+        text: string;
+        start: number;
+        end: number;
+        kind: string;
+        kindValue: number;
+        flags: string[];
+        flagValue: ts.NodeFlags;
+    }[];
+    parameterInfos: {
+        name: string;
+        type: string;
+        typeInfo: {
+            text: string;
+            start: number;
+            end: number;
+            kind: string;
+            kindValue: number;
+            flags: string[];
+            flagValue: ts.NodeFlags;
+        };
+        optional: boolean;
+        spread: boolean;
+        modifiers: string[];
+        text: string;
+        start: number;
+        end: number;
+        kind: string;
+        kindValue: number;
+        flags: string[];
+        flagValue: ts.NodeFlags;
+    }[];
+    text: string;
+    start: number;
+    end: number;
+    kind: string;
+    kindValue: number;
+    flags: string[];
+    flagValue: ts.NodeFlags;
+};

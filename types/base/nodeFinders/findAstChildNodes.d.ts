@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import { type NodeMatchOptions } from './nodeMatchOptions';
+import { type NodeMatchOptions } from './../nodeMatch/match/nodeMatchOptions';
 /**
  * Find all of node's Ast children matching the match options. \
  * The children list comes from getAstChildren \

@@ -18,6 +18,7 @@ export type VariableStatementInfo = {
 }
 
 export function getVariableStatementInfo(node: ts.VariableStatement) {
+  node.modifiers
   return {
     text: node.getText() ?? '',
     start: node.getStart(),

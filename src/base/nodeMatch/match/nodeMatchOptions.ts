@@ -14,7 +14,6 @@ import { hasModifiers } from 'src/base/nodeMatch/hasAll/hasModifiers'
 import { hasModifier } from 'src/base/nodeMatch/has/hasModifier'
 import { hasOneOfModifiers } from 'src/base/nodeMatch/hasOneOf/hasOneOfModifiers'
 import { hasModifierLike } from 'src/base/nodeMatch/has/hasModifierLike'
-import { isExported } from 'src/base'
 
 export type NodeMatchOptions = {
   // node matcher

@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import fs from 'fs'
 
 import paths from 'src/staticPaths'
-import { findFilesSync } from 'src/util/findFilesSync'
+import { findFilesSync } from 'actions/findFilesSync'
 import { replaceAt } from 'src/util/replaceAt'
 import { findImports } from 'src/base/nodeFinders/findMany/findImports'
 import { createSourceFileFromCode } from 'src/base/sourceFile/createSourceFileFromCode'

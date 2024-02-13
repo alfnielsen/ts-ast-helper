@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import { ModifierLikeMap } from 'src/base/getters/typeMaps/ModifierLikeMap'
-import { hasModifier } from 'src/base'
+import { hasModifier } from 'src/base/nodeMatch/has/hasModifier'
 
 export const hasModifiers = (
   node: ts.Node,

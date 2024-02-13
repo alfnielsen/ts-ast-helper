@@ -5,7 +5,7 @@ import { getParameters } from 'src/base/getters/nodePropertyGetters/getParameter
 import { HParameter } from 'src/experimental/helperTree/HParameter'
 import { nodeKind } from 'src/base/printer/nodeKind'
 import { createProgramFromCode } from 'src/base/program/createProgramFromCode'
-import isExported from 'src/base/nodeMatch/is/isExported'
+import { isExported } from 'src/base/nodeMatch/is/isExported'
 
 export class HNode {
   public comments: string = ''

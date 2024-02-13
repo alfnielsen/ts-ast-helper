@@ -1,6 +1,7 @@
 import * as ts from 'typescript'
-import { createProgramFromCode, findIdentifiers } from 'src/base'
 import { getSymbolInfo } from 'src/base/getters/infoMaps/getSymbolInfo'
+import { createProgramFromCode } from 'src/base/program/createProgramFromCode'
+import { findIdentifiers } from 'src/base/nodeFinders/findMany/findIdentifiers'
 
 const fileName = 'file.ts'
 const code1 = `

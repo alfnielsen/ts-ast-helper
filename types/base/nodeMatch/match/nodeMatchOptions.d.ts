@@ -1,0 +1,22 @@
+import * as ts from 'typescript';
+import { type NodeTypeMap } from './nodeMatchType';
+export type NodeMatchOptions = {
+    kind?: ts.SyntaxKind | keyof typeof ts.SyntaxKind;
+    oneOfKinds?: (ts.SyntaxKind | keyof typeof ts.SyntaxKind)[];
+    nameContains?: string | RegExp;
+    type?: NodeTypeMap | keyof typeof NodeTypeMap;
+    oneOfTypes?: (NodeTypeMap | keyof typeof NodeTypeMap)[];
+    matchContent?: string | RegExp;
+    contentContains?: string | RegExp;
+    contentContainsAll?: (string | RegExp)[];
+    name?: string | RegExp;
+    oneOfNames?: (string | RegExp)[];
+    export?: true;
+    async?: true;
+    modifier?: ts.ModifierSyntaxKind;
+    modifiers?: ts.ModifierSyntaxKind[];
+    oneOfModifiers?: ts.ModifierSyntaxKind[];
+    match?: (node: ts.Node) => boolean;
+};
+export type FindNodeOptionsFunction = (node: ts.Node, options: NodeMatchOptions) => boolean;
+export declare function nodeMatchOptions(node: ts.Node, opt: NodeMatchOptions): boolean;

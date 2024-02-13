@@ -1,5 +1,5 @@
-import { hasModifierLikes } from 'src/base'
 import * as ts from 'typescript'
+import { hasModifierLikes } from 'src/base/nodeMatch/hasAll/hasModifierLikes'
 
 export function isDefaultExported(node: ts.Node): boolean {
   return hasModifierLikes(

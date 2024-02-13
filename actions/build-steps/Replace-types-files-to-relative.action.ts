@@ -1,8 +1,8 @@
 import * as ts from 'typescript'
 import { Glob } from 'bun'
 import { relative, normalize, dirname, basename, join, sep } from 'path'
-import { findNodesInCode } from 'src/base'
 import paths from 'src/staticPaths'
+import { findNodesInCode } from 'src/base/nodeFinders/inCode/findNodesInCode'
 // find all files that has postfix .gtest.ts
 // consider add to run-test-files (runtf):
 // @tf-option: onlyLog(Only log changes)['yes','no']

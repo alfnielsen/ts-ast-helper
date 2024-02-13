@@ -7,9 +7,9 @@
   "scripts": {
     "build": "bun run clean-builds && bun run build-index-files && bun run build-base && bun run build-experimental && bun run build-util && bun run build-type",
     "clean-builds": "rm -R -f types && rm -R -f dist",
-    "build-base": "bun build ./src/index.ts --outdir ./dist  --declaration",
-    "build-experimental": "bun build ./src/experimental.ts --outdir ./dist",
-    "build-util": "bun build ./src/util.ts --outdir ./dist",
+    "build-base": "bun build --target=node ./src/index.ts --outdir ./dist  --declaration",
+    "build-experimental": "bun build --target=node ./src/experimental.ts --outdir ./dist",
+    "build-util": "bun build  --target=node ./src/util.ts --outdir ./dist",
     "build-type": "bun run build-tsc-types && bun run change-types-to-rel",
     "build-tsc-types": "tsc -p tsconfig.definitions.json",
     "build-index-files": "bun run ./actions/build-steps/Create-all-file-export-files.action.ts",

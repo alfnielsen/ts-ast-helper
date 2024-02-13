@@ -1,7 +1,7 @@
 import * as ts from 'typescript'
-import type { NodeMatchOptions } from 'src/base'
 import { findAncestor } from 'src/base/nodeFinders/findAncestor'
+import type { NodeMatchOptions } from 'src/base/nodeMatch/match/nodeMatchOptions'
 
-export const hasModifier = (node: ts.Node, options: NodeMatchOptions) => {
+export const hasAncestor = (node: ts.Node, options: NodeMatchOptions) => {
   return !!findAncestor(node, options)
 }

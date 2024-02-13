@@ -1,6 +1,6 @@
 import * as ts from 'typescript'
 import { nodeMatchContent } from '../../base/nodeMatch/match/nodeMatchContent'
-import { nodeTextMatch } from '../../base/nodeMatch/nodeTextMatch'
+import { nodeMatchText } from 'src/base/nodeMatch/match/nodeMatchText'
 
 export class TsNode {
   matchedAllConditions = true
@@ -28,14 +28,14 @@ export class TsNode {
   }
 
   match(match: string | RegExp) {
-    if (!nodeTextMatch(this.node, match)) {
+    if (!nodeMatchText(this.node, match)) {
       this.matchedAllConditions = false
     }
     return this
   }
 
   dontMatch(match: string | RegExp) {
-    if (!nodeTextMatch(this.node, match)) {
+    if (!nodeMatchText(this.node, match)) {
       this.matchedAllConditions = false
     }
     return this
