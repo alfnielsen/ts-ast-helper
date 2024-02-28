@@ -42,9 +42,12 @@ export type NodeMatchOptions = {
   // matchGranChildren: NodeMatchOptionsFunction
 }
 
-const matchFunctionMap: Partial<
-  Record<keyof NodeMatchOptions, (node: ts.Node, ...input: any[]) => boolean>
-> = {
+type MatchFunc = (
+  node: ts.Node,
+  ...input: any[]
+) => boolean | ((node: ts.Node, input: any) => boolean)
+
+const matchFunctionMap: Partial<Record<keyof NodeMatchOptions, MatchFunc>> = {
   name: nodeMatchName,
   oneOfNames: nodeMatchOneOfNames,
   nameContains: nodeNameContains,
@@ -70,16 +73,9 @@ export function nodeMatchOptions(
 ): boolean {
   for (let [prop, func] of Object.entries(matchFunctionMap)) {
     const propName = prop as keyof typeof matchFunctionMap
-    if (opt[propName]) {
-      if (
-        Array.isArray(opt[propName]) &&
-        //@ts-ignore
-        !func(node, ...opt[propName])
-      ) {
-        return false
-      } else if (!func(node, opt[propName])) {
-        return false
-      }
+    const opts = opt[propName] as keyof NodeMatchOptions
+    if (opts && !mathFunc(node, func, opts)) {
+      return false
     }
   }
   if (opt.export && !hasModifierLike(node, ts.SyntaxKind.ExportKeyword)) {
@@ -89,6 +85,21 @@ export function nodeMatchOptions(
     return false
   }
   if (opt.match && !opt.match(node)) {
+    return false
+  }
+  return true
+}
+
+function mathFunc(
+  node: ts.Node,
+  func: MatchFunc,
+  opts: keyof typeof matchFunctionMap,
+) {
+  const isArray = Array.isArray(opts)
+  if (isArray && !func(node, ...opts)) {
+    return false
+  }
+  if (!isArray && !func(node, opts)) {
     return false
   }
   return true
