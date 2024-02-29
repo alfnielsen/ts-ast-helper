@@ -7,6 +7,7 @@ export enum NodeTypeMap {
   Block = 'Block',
   Import = 'Import',
   Identifier = 'Identifier',
+  TypeDefitionen = 'TypeDefitionen',
 }
 
 export const NodeTypeToKindMap: Record<
@@ -21,6 +22,12 @@ export const NodeTypeToKindMap: Record<
   [NodeTypeMap.Block]: [ts.SyntaxKind.Block],
   [NodeTypeMap.Import]: [ts.SyntaxKind.ImportDeclaration],
   [NodeTypeMap.Identifier]: [ts.SyntaxKind.Identifier],
+  [NodeTypeMap.TypeDefitionen]: [
+    ts.SyntaxKind.TypeAliasDeclaration,
+    ts.SyntaxKind.ImportClause,
+    ts.SyntaxKind.NamespaceImport,
+    ts.SyntaxKind.ImportSpecifier,
+  ],
 } as const
 
 export function nodeMatchType(

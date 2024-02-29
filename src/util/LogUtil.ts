@@ -30,6 +30,11 @@ export const colorMap: Record<LogColor, string> = {
 }
 export const resetColor = '\x1b[0m'
 
+export const $t = {
+  ...colorMap,
+  reset: resetColor,
+}
+
 export const colorMapKeys = Object.keys(colorMap) as LogColor[]
 export const colorMapValues = Object.values(colorMap) as LogColor[]
 export const getColor = (color: LogColor) => {
