@@ -1,5 +1,5 @@
 import { nodeKind } from 'src/base/printer/nodeKind'
-import { typeDefenitionDependencyWalker } from 'src/experimental/typeDefsVisitor/typeDefenitionDependencyWalker'
+import { typeDefinitionDependencyWalker } from 'src/experimental/typeDefsVisitor/typeDefinitionDependencyWalker'
 
 const code = `
 import foo1 from "foo1"
@@ -59,7 +59,7 @@ function f(o: foo1): resp {}
 `
 
 let i = 0
-typeDefenitionDependencyWalker({
+typeDefinitionDependencyWalker({
   content: code,
   type: 'resp',
   predicate(n) {

@@ -2,7 +2,7 @@ import * as ts from 'typescript'
 import { getName, nodeMatchType } from 'src/base'
 import { getAllTypeDefsFromString } from 'src/experimental/typeDefsVisitor/getAllTypeDefsFromString'
 
-export type TypeDefsVisitorFromString = {
+export type TypeDefinitionDependencyWalker = {
   content: string
   type: string | ts.Node
   predicate: (type: ts.Node) => void
@@ -10,7 +10,9 @@ export type TypeDefsVisitorFromString = {
   includeEnums?: boolean
 }
 
-export function typeDefenitionDependencyWalker(opt: TypeDefsVisitorFromString) {
+export function typeDefinitionDependencyWalker(
+  opt: TypeDefinitionDependencyWalker,
+) {
   const {
     content,
     predicate,

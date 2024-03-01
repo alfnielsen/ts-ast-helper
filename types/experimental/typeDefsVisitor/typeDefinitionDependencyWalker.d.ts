@@ -1,9 +1,9 @@
 import * as ts from 'typescript';
-export type TypeDefsVisitorFromString = {
+export type TypeDefinitionDependencyWalker = {
     content: string;
     type: string | ts.Node;
     predicate: (type: ts.Node) => void;
     includeNoneNamed?: boolean;
     includeEnums?: boolean;
 };
-export declare function typeDefenitionDependencyWalker(opt: TypeDefsVisitorFromString): void;
+export declare function typeDefinitionDependencyWalker(opt: TypeDefinitionDependencyWalker): void;
