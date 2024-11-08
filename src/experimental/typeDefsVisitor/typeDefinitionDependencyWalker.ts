@@ -10,6 +10,8 @@ export type TypeDefinitionDependencyWalker = {
   includeEnums?: boolean
 }
 
+export const nativeTypes = ['string', 'number', 'boolean', 'null', 'undefined']
+
 export function typeDefinitionDependencyWalker(
   opt: TypeDefinitionDependencyWalker,
 ) {

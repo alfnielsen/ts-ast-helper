@@ -8,4 +8,4 @@ import { type NodeMatchOptions } from './../nodeMatch/match/nodeMatchOptions';
  * @param opt
  * @returns
  */
-export declare function findAstChildNode<TType extends ts.Node = ts.Node>(parentNode: ts.Node, opt?: NodeMatchOptions): TType;
+export declare function findAstChildNode<TType extends ts.Node = ts.Node>(parentNode: ts.Node, opt?: NodeMatchOptions): TType | undefined;

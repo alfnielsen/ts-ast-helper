@@ -6,4 +6,5 @@ export type TypeDefinitionDependencyWalker = {
     includeNoneNamed?: boolean;
     includeEnums?: boolean;
 };
+export declare const nativeTypes: string[];
 export declare function typeDefinitionDependencyWalker(opt: TypeDefinitionDependencyWalker): void;

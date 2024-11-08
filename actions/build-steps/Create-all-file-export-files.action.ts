@@ -28,13 +28,13 @@ let content = getType(paths.basePath, 'base', /(\.dev|\.tf)\.ts$/)
 let baseExportPath = join(paths.srcPath, 'base.ts')
 Bun.write(baseExportPath, content)
 
-let experimental = getType(
-  paths.experimentalPath,
-  'experimental',
-  /(\.dev|\.tf)\.ts$/,
-)
-let experimentalExportPath = join(paths.srcPath, 'experimental.ts')
-Bun.write(experimentalExportPath, experimental)
+// let experimental = getType(
+//   paths.experimentalPath,
+//   'experimental',
+//   /(\.dev|\.tf)\.ts$/,
+// )
+// let experimentalExportPath = join(paths.srcPath, 'experimental.ts')
+// Bun.write(experimentalExportPath, experimental)
 
 let util = getType(paths.utilPath, 'util', /(\.dev|\.tf)\.ts$/)
 let utilExportPath = join(paths.srcPath, 'util.ts')
@@ -42,5 +42,5 @@ Bun.write(utilExportPath, util)
 
 console.log('Paths:')
 console.log(baseExportPath)
-console.log(experimentalExportPath)
+// console.log(experimentalExportPath)
 console.log(utilExportPath)
